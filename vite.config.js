@@ -11,4 +11,9 @@ export default defineConfig({
       "@pages": path.resolve(__dirname, "./src/pages"),
     },
   },
+  server: {
+    hmr: {
+      overlay: true,
+    },
+  },
 });
