@@ -1,0 +1,34 @@
+:root {
+  --primary-color: #449dd1;
+  --secondary-color: #192bc2;
+  --tertiary-color: #150578;
+  --background-color: #050522;
+  --text-color: #d7e7ee;
+
+  --border-radius: 8px;
+}
+
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--background-color);
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: var(--text-color);
+}
+
+h2 {
+  font-size: 2rem;
+  color: var(--text-color);
+}
+
+h3 {
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+
+p {
+  font-size: 1rem;
+  color: var(--text-color);
+}

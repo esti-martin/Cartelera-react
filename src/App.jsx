@@ -16,6 +16,9 @@ function App() {
         </a>
       </div>
       <h1 className="text-3xl font-bold underline">Vite + React</h1>
+      <h2>Cartelera</h2>
+      <h3>Version 1.0.0</h3>
+      <p>Desarrollado por Rudvan</p>
       <div className="card">
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
