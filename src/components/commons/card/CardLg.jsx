@@ -72,8 +72,8 @@ function CardLg() {
   if (!movie) return <p className="p-4">Cargando...</p>;
 
   return (
-    <div className="max-w-[1200px] mx-auto px-4 bg-[var(--background-color)]">
-      <div className="flex flex-col p-4 w-full space-y-4">
+    <div className="max-w-[1200px] mx-auto px-4  bg-[var(--background-color)]">
+      <div className="flex flex-col p-4 w-full justify-center  space-y-4">
         <article className="flex flex-col md:flex-row gap-6 items-start">
           <div className="md:w-1/3 w-full">
             <img
@@ -84,10 +84,10 @@ function CardLg() {
           </div>
 
           <div className="md:w-2/3 w-full">
-            <h2 className="text-2xl font-extrabold mb-1 text-cyan-400">
+            <h2 className="text-2xl font-extrabold mb-1 text-sky-400">
               {movie.title}
             </h2>
-            <p className="text-lg text-sky-300">
+            <p className="text-lg text-sky-200">
               Fecha de lanzamiento: {movie.release_date}
             </p>
             <p className="text-sm text-yellow-400 mb-2 font-semibold">
