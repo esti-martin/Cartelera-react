@@ -1,14 +1,21 @@
 .button {
-  background-color: #007bff;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  font-weight: bold;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   max-height: 40px;
-}
+  transition: background-color, 0.5s;
 
-.button:disabled {
+  &:hover {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+  }
+
+  &:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
 }
