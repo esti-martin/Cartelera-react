@@ -1,12 +1,15 @@
-import FilmInfo from "./pages/auth/FilmInfo";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "@pages/auth/Home";
+import FilmInfo from "@pages/auth/FilmInfo";
+import "@styles/index.css";
 
-function App() {
+export default function App() {
   return (
-    <>
-      <h2>Cartelera</h2>
-      <FilmInfo />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/movie/:id" element={<FilmInfo />} />
+      </Routes>
+    </Router>
   );
 }
-
-export default App;
