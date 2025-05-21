@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import "@components/commons/card/slider/slider.css";
 
 function Slider() {
   const [movies, setMovies] = useState([]);
@@ -13,19 +14,14 @@ function Slider() {
 
     const url = "https://api.themoviedb.org/3/trending/movie/day?language=es-ES";
 
-    const options = {
+    fetch(url, {
       method: "GET",
       headers: {
         accept: "application/json",
         Authorization: "Bearer " + API_KEY,
       },
-    };
-
-    fetch(url, options)
-      .then((res) => {
-        if (!res.ok) throw new Error("Error al conectar con TMDB");
-        return res.json();
-      })
+    })
+      .then((res) => res.json())
       .then((data) => {
         if (data.results && data.results.length > 0) {
           setMovies(data.results.slice(0, 3));
@@ -36,37 +32,47 @@ function Slider() {
 
   if (movies.length === 0) return <p>Cargando...</p>;
 
+  const movie = movies[current];
+  const imageUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path || movie.poster_path}`;
+
+
   return (
-    <div>
-      <h2>Trending</h2>
-
-      <div style={{ textAlign: "center" }}>
-        <button onClick={() => setCurrent((current + 2) % 3)}>◀</button>
-        <div>
-          <h3>{movies[current].title}</h3>
-          <img
-            src={`https://image.tmdb.org/t/p/w500${movies[current].poster_path}`}
-            alt={movies[current].title}
-            style={{ width: "200px", borderRadius: "10px" }}
-          />
+    <div className="slider-container">
+      <div
+        className="slider-background"
+        style={{ backgroundImage: `url(${imageUrl})` }}
+      >
+        <div className="slider-content">
+          <h2>{movie.title}</h2>
+          <p><strong>Año:</strong> {new Date(movie.release_date).getFullYear()}</p>
+          <p><strong>Valoración:</strong> ⭐ {movie.vote_average.toFixed(1)} / 10</p>
+          <p>{movie.overview}</p>
         </div>
-        <button onClick={() => setCurrent((current + 1) % 3)}>▶</button>
-      </div>
-
-      <div>
-        {movies.map((_, i) => (
-          <span
-            key={i}
-            style={{
-              margin: "0 5px",
-              cursor: "pointer",
-              color: current === i ? "red" : "gray",
-            }}
-            onClick={() => setCurrent(i)}
-          >
-            ●
-          </span>
-        ))}
+        <button
+          className="nav-button left"
+          onClick={() =>
+            setCurrent((current - 1 + movies.length) % movies.length)
+          }
+        >
+          ◀
+        </button>
+        <button
+          className="nav-button right"
+          onClick={() => setCurrent((current + 1) % movies.length)}
+        >
+          ▶
+        </button>
+        <div className="dots">
+          {movies.map((_, i) => (
+            <span
+              key={i}
+              className={`dot ${i === current ? "active" : ""}`}
+              onClick={() => setCurrent(i)}
+            >
+              ●
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   );
