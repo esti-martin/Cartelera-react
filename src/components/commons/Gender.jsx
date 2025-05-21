@@ -6,7 +6,7 @@ const API_KEY = "d47b7a69abf720959fe4fefb4d956b2f";
 const BASE_URL = "https://api.themoviedb.org/3";
 const IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
 
-const genresToShow = ["Action", "Comedy", "Drama"];
+const genresToShow = ["Acción", "Comedia", "Drama"];
 
 export default function Gender() {
   const [genreData, setGenreData] = useState({});
@@ -17,7 +17,7 @@ export default function Gender() {
     const fetchGenresAndMovies = async () => {
       try {
         const genreRes = await axios.get(
-          `${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`
+          `${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=es-ES`
         );
         const genreList = genreRes.data.genres;
         const selectedGenres = genreList.filter((g) =>
