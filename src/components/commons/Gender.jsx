@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const API_KEY = "d47b7a69abf720959fe4fefb4d956b2f";
+const API_KEY = import.meta.env.VITE_API_KEY_SHORT;
 const BASE_URL = "https://api.themoviedb.org/3";
 const IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
 
@@ -57,7 +57,7 @@ export default function Gender() {
           key={genreName}
           style={{ marginBottom: "40px", textAlign: "center" }}
         >
-          <h2 style={{ fontSize: "24px", marginBottom: "20px" }}>
+          <h2 id={genreName} style={{ fontSize: "24px", marginBottom: "20px" }}>
             {genreName}
           </h2>
           <div

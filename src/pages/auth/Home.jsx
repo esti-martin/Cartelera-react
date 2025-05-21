@@ -11,7 +11,17 @@ export default function Home() {
         color: "#d7e7ee",
       }}
     >
-      <h1 style={{ textAlign: "center", marginBottom: "40px" }}>GÉNEROS</h1>
+      <h1
+        style={{
+          textAlign: "center",
+          marginBottom: "40px",
+          fontSize: "24px",
+          color: "#d7e7ee",
+          fontWeight: "bold",
+        }}
+      >
+        GÉNEROS
+      </h1>
       <Gender />
     </div>
   );
