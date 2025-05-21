@@ -1,0 +1,40 @@
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    section {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        img {
+            max-width: 200px;
+        }
+
+        ul {
+            display: inline-flex;
+            gap: 2rem;
+            list-style-type: none;
+
+            a {
+                text-decoration: none;
+                transition: 0.5s;
+
+                &:hover{
+                    color: var(--primary-color);
+                    text-decoration: underline;
+                    text-underline-offset: 0.5rem;
+                    text-decoration-thickness: 4px;
+                }
+            }
+        }
+    }
+
+    
+
+}
+
+
+
