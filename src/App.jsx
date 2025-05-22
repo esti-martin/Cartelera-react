@@ -11,9 +11,10 @@ import Search from "@pages/auth/Search";
 import Footer from "@components/footer/footer";
 import UserProfile from "@pages/auth/UserProfile";
 import "@styles/index.css";
+import { AuthProvider } from "@pages/auth/AuthContext";
 
 export default function App() {
-  const { isAuthenticated, isLoading } = useAuth0();
+  const { user: auth0User, isAuthenticated, isLoading } = useAuth0();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -27,7 +28,7 @@ export default function App() {
   if (isLoading) return null;
 
   return (
-    <>
+    <AuthProvider>
       {/* Navbar siempre visible, cambia según autenticación */}
       {isAuthenticated ? <NavbarAuth /> : <NavbarGuest />}
 
@@ -71,6 +72,6 @@ export default function App() {
         />
       </Routes>
       <Footer />
-    </>
+    </AuthProvider>
   );
 }
