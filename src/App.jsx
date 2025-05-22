@@ -9,12 +9,14 @@ import NavbarAuth from "@components/navbar/auth/NavbarAuth/NavbarAuth";
 
 export default function App() {
   return (
+
     <Router>
       <NavbarAuth />
       <Routes>
         {/* Página pública */}
         <Route path="/" element={<Landing />} />
         {/* Páginas protegidas (logueado) */}
+        <Route path="/user" element={<UserProfile />} />
         <Route path="/home" element={<Home />} />
         <Route path="/movie/:id" element={<FilmInfo />} />
         <Route path="/search" element={<Search />} /> {/* <-- nueva ruta */}
