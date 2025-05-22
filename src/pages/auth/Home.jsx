@@ -1,5 +1,5 @@
 import React from "react";
-import Gender from "@components/commons/Gender";
+import Gender from "@components/commons/card/Gender";
 
 export default function Home() {
   return (
