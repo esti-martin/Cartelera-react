@@ -1,5 +1,6 @@
 import React from "react";
 import Gender from "@components/commons/card/Gender";
+import Footer from "@components/footer/footer";
 
 export default function Home() {
   return (
@@ -23,6 +24,8 @@ export default function Home() {
         GÉNEROS
       </h1>
       <Gender />
+      <Footer />
+
     </div>
   );
 }
