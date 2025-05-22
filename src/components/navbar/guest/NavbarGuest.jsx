@@ -5,7 +5,7 @@ function NavbarGuest() {
   return (
     <nav className={styles.nav}>
         <img src="/src/assets/logo.png" alt="logo Hooks & Chill" />
-        <Button >Suscríbete</Button>
+        <Button >Iniciar sesión</Button>
     </nav>
   );
 }

@@ -3,8 +3,9 @@ nav {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin: 20px;
 
-    section {
+    .logoNav {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -32,7 +33,32 @@ nav {
         }
     }
 
-    
+    .searchProfile {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 2rem;
+
+        .searchIcon {
+        cursor: pointer;
+
+        path{
+            &:hover {
+                color: var(--primary-color);
+            }
+        }
+        
+    }.searchIcon {
+        cursor: pointer;
+
+        path{
+            &:hover {
+                color: var(--primary-color);
+            }
+        }
+        
+    }
+    }
 
 }
 
