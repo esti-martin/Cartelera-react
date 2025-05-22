@@ -3,6 +3,7 @@
   height: 50%;
   position: relative;
   overflow: hidden;
+  padding-top: 120px;
 }
 .slider-container img {
   width: 100%;
@@ -18,6 +19,7 @@
   background-position: center;
   background-repeat: no-repeat;
   transition: all 0.5s ease-in-out;
+ 
   &::before {
     background-color: rgba(0, 0, 0, 0.5);
     content: "";
