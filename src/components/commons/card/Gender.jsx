@@ -50,41 +50,43 @@ export default function Gender() {
 
   return (
     <>
-      {Object.entries(genreData).map(([genreName, movies]) => (
-        <div key={genreName} className="mb-10 text-center">
-          <h2
-            id={genreName}
-            className="text-4xl mb-5 font-bold text-cyan-300 capitalize text-center"
-          >
-            {genreName}
-          </h2>
+      <div className="flex flex-wrap justify-center gap-5">
+        {Object.entries(genreData).map(([genreName, movies]) => (
+          <div key={genreName} className="mb-20 text-center gap-5">
+            <h2
+              id={genreName}
+              className=" text-4xl mb-5 font-bold text-cyan-300 capitalize text-center"
+            >
+              {genreName}
+            </h2>
 
-          <div className="flex flex-wrap justify-center gap-5">
-            {movies.map((movie) => (
-              <div
-                key={movie.id}
-                className="w-[180px] bg-indigo-900 rounded-lg shadow-lg transform transition-transform duration-300 cursor-pointer hover:scale-105"
-                onClick={() => navigate(`/movie/${movie.id}`)}
-              >
-                <img
-                  src={
-                    movie.poster_path
-                      ? `${IMAGE_BASE}${movie.poster_path}`
-                      : "https://via.placeholder.com/180x270?text=No+Image"
-                  }
-                  alt={movie.title}
-                  className="w-full h-[270px] object-cover rounded-t-lg bg-black"
-                />
-                <div className="p-2 text-center bg-cyan-600 rounded-b-lg h-[50px] flex items-center justify-center">
-                  <p className="text-sm text-blue-100 font-bold line-clamp-2 text-center">
-                    {movie.title}
-                  </p>
+            <div className="flex flex-wrap justify-center gap-5">
+              {movies.map((movie) => (
+                <div
+                  key={movie.id}
+                  className="w-[180px] bg-indigo-900 rounded-lg shadow-lg transform transition-transform duration-300 cursor-pointer hover:scale-105"
+                  onClick={() => navigate(`/movie/${movie.id}`)}
+                >
+                  <img
+                    src={
+                      movie.poster_path
+                        ? `${IMAGE_BASE}${movie.poster_path}`
+                        : "https://via.placeholder.com/180x270?text=No+Image"
+                    }
+                    alt={movie.title}
+                    className="w-full h-[270px] object-cover rounded-t-lg bg-black"
+                  />
+                  <div className="p-2 text-center bg-cyan-600 rounded-b-lg h-[50px] flex items-center justify-center">
+                    <p className="text-sm text-blue-100 font-bold line-clamp-2 text-center">
+                      {movie.title}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </>
   );
 }
