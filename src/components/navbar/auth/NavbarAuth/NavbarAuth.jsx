@@ -11,13 +11,13 @@ function NavbarAuth() {
         </a>
         <ul>
           <li>
-            <a href="#Acción">Acción</a>
+            <a href="/home#Acción">Acción</a>
           </li>
           <li>
-            <a href="#Comedia">Comedia</a>
+            <a href="/home#Comedia">Comedia</a>
           </li>
           <li>
-            <a href="#Drama">Drama</a>
+            <a href="/home#Drama">Drama</a>
           </li>
         </ul>
       </section>
