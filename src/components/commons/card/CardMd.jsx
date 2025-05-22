@@ -1,14 +1,21 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import Button from "@components/commons/Button/Button";
 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w185";
 
 function CardMd({ movie }) {
+  const navigate = useNavigate();
+
   if (!movie) return null;
 
+  const handleClick = () => {
+    navigate(`/movie/${movie.id}`);
+  };
+
   return (
-    <article className="flex items-start gap-4 bg-zinc-900 rounded-lg shadow-md p-4 w-full max-w-3xl mx-auto">
+    <article className="flex items-start gap-4 border-2 border-white rounded-lg shadow-md p-4 w-full max-w-3xl mx-auto">
       {/* Movie poster */}
-      <p className="text-red-500 text-2xl">Card Md</p>
       <img
         src={
           movie.poster_path
@@ -28,6 +35,13 @@ function CardMd({ movie }) {
         <p className="text-sm mt-2 line-clamp-4">
           {movie.overview || "Sin descripción disponible."}
         </p>
+
+        {/* Botón igual al del Slider */}
+        <Button
+          children="Ver Más"
+          onClick={handleClick}
+          className="mt-4 self-start"
+        />
       </div>
     </article>
   );
