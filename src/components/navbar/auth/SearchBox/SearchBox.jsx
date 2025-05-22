@@ -17,12 +17,13 @@ function SearchBox() {
   return (
     <form onSubmit={handleSubmit} className={styles.box}>
       <input
+        className="bg-transparent"
         type="text"
         placeholder="Buscar"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
-      <button type="submit">
+      <button className="bg-transparent" type="submit">
         <CgSearch className={styles.searchIcon} size={32} />
       </button>
     </form>
