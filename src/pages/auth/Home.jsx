@@ -1,15 +1,18 @@
 import React from "react";
 import Gender from "@components/commons/card/Gender";
 import Slider from "@components/commons/card/slider/slider";
+import NavbarAuth from "@components/navbar/auth/NavbarAuth/NavbarAuth";
 
 export default function Home() {
   return (
     <>
+      <NavbarAuth />
       <div
         style={{
           background: "#050522",
           minHeight: "100vh",
           color: "#d7e7ee",
+          paddingTop: "7rem",
         }}
       >
         <Slider />
