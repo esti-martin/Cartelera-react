@@ -44,7 +44,7 @@ function Slider() {
   return (
     <div className="slider-container">
       <div
-        className="slider-background cursor-pointer"
+        className="slider-background cursor-pointer "
         style={{ backgroundImage: `url(${imageUrl})` }}
         onClick={() => navigate(`/movie/${movie.id}`)}
       >
@@ -60,7 +60,7 @@ function Slider() {
           <Button
             children="Ver Más"
             onClick={() => navigate(`/movie/${movie.id}`)}
-            className="bg-blue-500 hover:bg-blue-600 mt-12"
+            className="bg-blue-500 hover:bg-blue-600 top-16"
           />
         </div>
 
