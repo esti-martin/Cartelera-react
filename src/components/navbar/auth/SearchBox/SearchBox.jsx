@@ -5,9 +5,9 @@ function SearchBox() {
   return (
     <form action="" className={styles.box}>
       <input type="text" placeholder='Buscar'/>
-      <botton>
+      <button>
         <CgSearch className={styles.searchIcon} size={32}/>
-      </botton>
+      </button>
     </form>
   );
 }

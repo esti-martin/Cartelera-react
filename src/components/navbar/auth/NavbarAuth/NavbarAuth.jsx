@@ -15,9 +15,9 @@ function NavbarAuth() {
       </section>
       <section className={styles.searchProfile}>
         <SearchBox/>
-        <botton>
+        <button>
           <CgProfile className={styles.searchIcon} size={32}/>
-        </botton>
+        </button>
       </section>
         
     </nav>
