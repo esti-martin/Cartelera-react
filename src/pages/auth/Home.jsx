@@ -12,7 +12,6 @@ export default function Home() {
         style={{
           background: "#050522",
           minHeight: "100vh",
-          padding: "20px",
           color: "#d7e7ee",
         }}
       >
