@@ -1,66 +1,52 @@
-nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
-
-    .logoNav {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-
-        img {
-            max-width: 200px;
-        }
-
-        ul {
-            display: inline-flex;
-            gap: 2rem;
-            list-style-type: none;
-
-            a {
-                text-decoration: none;
-                transition: 0.5s;
-
-                &:hover{
-                    color: var(--primary-color);
-                    text-decoration: underline;
-                    text-underline-offset: 0.5rem;
-                    text-decoration-thickness: 4px;
-                }
-            }
-        }
-    }
-
-    .searchProfile {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 2rem;
-
-        .searchIcon {
-        cursor: pointer;
-
-        path{
-            &:hover {
-                color: var(--primary-color);
-            }
-        }
-        
-    }.searchIcon {
-        cursor: pointer;
-
-        path{
-            &:hover {
-                color: var(--primary-color);
-            }
-        }
-        
-    }
-    }
-
+.nav {
+  position: sticky; /* o fixed, si quieres que esté siempre visible incluso al hacer scroll */
+  top: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 2rem;
+  background-color: transparent; /* fondo con opacidad */
+  backdrop-filter: blur(10px); /* 💫 el blur mágico */
+  -webkit-backdrop-filter: blur(10px); /* soporte Safari */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* opcional: borde sutil */
 }
 
+.logoNav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  background-color: transparent;
+}
 
+.logoNav ul {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  background-color: transparent;
+}
 
+.logoNav ul li a {
+  font-size: 1.2rem;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.2s;
+  background-color: transparent;
+}
+
+.logoNav ul li a:hover {
+  color: #00d8ff; /* o tu color primario */
+  background-color: transparent;
+}
+
+.searchProfile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: transparent;
+}
+
+.searchIcon {
+    background-color: transparent;
+}

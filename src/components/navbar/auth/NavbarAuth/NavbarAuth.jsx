@@ -6,26 +6,30 @@ function NavbarAuth() {
   return (
     <nav className={styles.nav}>
       <section className={styles.logoNav}>
-        <a href="/home">
-          <img src="/src/assets/logo.png" alt="logo Hooks & Chill" />
+        <a className="bg-transparent" href="/home">
+          <img
+            className="bg-transparent"
+            src="/src/assets/logo.png"
+            alt="logo Hooks & Chill"
+          />
         </a>
-        <ul>
-          <li>
+        <ul className="bg-transparent">
+          <li className="bg-transparent">
             <a href="/home#Acción">Acción</a>
           </li>
-          <li>
+          <li className="bg-transparent">
             <a href="/home#Comedia">Comedia</a>
           </li>
-          <li>
+          <li className="bg-transparent">
             <a href="/home#Drama">Drama</a>
           </li>
         </ul>
       </section>
       <section className={styles.searchProfile}>
         <SearchBox />
-        <botton>
+        <button>
           <CgProfile className={styles.searchIcon} size={32} />
-        </botton>
+        </button>
       </section>
     </nav>
   );
