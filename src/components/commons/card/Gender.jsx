@@ -45,9 +45,7 @@ export default function Gender() {
 
   if (loading)
     return (
-      <div className="text-center mt-10 text-white">
-        Cargando películas...
-      </div>
+      <div className="text-center mt-10 text-white">Cargando películas...</div>
     );
 
   return (
@@ -77,8 +75,8 @@ export default function Gender() {
                   alt={movie.title}
                   className="w-full h-[270px] object-cover rounded-t-lg bg-black"
                 />
-                <div className="p-2 text-center bg-indigo-900 rounded-b-lg h-[50px] flex items-center justify-center">
-                  <p className="text-sm font-semibold text-blue-100 line-clamp-2">
+                <div className="p-2 text-center bg-cyan-600 rounded-b-lg h-[50px] flex items-center justify-center">
+                  <p className="text-sm text-blue-100 font-bold line-clamp-2 text-center">
                     {movie.title}
                   </p>
                 </div>
