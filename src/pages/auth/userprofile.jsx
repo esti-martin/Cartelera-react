@@ -15,7 +15,7 @@ function UserProfile() {
   }
 
   return (
-    <div className="user-profile pt-36">
+    <div className="user-profile">
       <img src={user.picture} alt={`Perfil de ${user.name}`} className="profile-img" />
       <div className="user-info">
         <h2>{user.name}</h2>
