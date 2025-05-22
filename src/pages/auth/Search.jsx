@@ -37,7 +37,7 @@ function Search() {
   }, [query]);
 
   return (
-    <section className="px-4 py-6 pt-36 text-white">
+    <section className="px-4 py-6 text-white">
       <h1 className="text-2xl font-bold mb-4 text-center">
         Resultados para: <span className="text-primary-color">{query}</span>
       </h1>
