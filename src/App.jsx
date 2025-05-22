@@ -18,10 +18,11 @@ export default function App() {
   const location = useLocation();
 
   useEffect(() => {
+    // Only redirect to /home if authenticated and currently on the root path.
     if (isAuthenticated && location.pathname === "/") {
       navigate("/home");
     }
-  }, [isAuthenticated, navigate, location.pathname]);
+  }, [isAuthenticated, location.pathname, navigate]);
 
   if (isLoading) return null;
 
@@ -57,6 +58,14 @@ export default function App() {
           element={
             <ProtectedRoute>
               <UserProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/search"
+          element={
+            <ProtectedRoute>
+              <Search />
             </ProtectedRoute>
           }
         />
