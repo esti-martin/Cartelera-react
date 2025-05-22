@@ -1,0 +1,108 @@
+.slider-container {
+  width: 100%;
+  height: 50%;
+  position: relative;
+  overflow: hidden;
+}
+.slider-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.5s ease-in-out;
+}
+.slider-background {
+  position: relative;
+  width: 100%;
+  height: 46vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  &::before {
+    background-color: rgba(0, 0, 0, 0.5);
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+}
+
+/* Texto sobre la imagen */
+
+h2 {
+  font-size: 2.5rem;
+  color: var(--text-color);
+  text-align: left;
+  margin-bottom: 1rem;
+  background-color: transparent;
+}
+
+p {
+  font-size: 1.2rem;
+  color: var(--text-color);
+  text-align: left;
+  margin-bottom: 1rem;
+  background-color: transparent;
+}
+.slider-content {
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  transform: translateX(0);
+  color: var(--text-color);
+  text-align: left;
+  max-width: 35%;
+  z-index: 3;
+  background-color: transparent;
+  padding: 1rem;
+  border-radius: 12px;
+}
+
+/* Botones de navegación */
+.nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  font-size: 3rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.nav-button.left {
+  left: 20px;
+}
+
+.nav-button.right {
+  right: 20px;
+}
+
+/* Puntos de navegación */
+.dots {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 5;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  background-color: gray;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dot.active {
+  background-color: white;
+}
