@@ -1,40 +1,20 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Landing from "@pages/guest/Landing";
+import Home from "@pages/auth/Home";
+import FilmInfo from "@pages/auth/FilmInfo";
+import "@styles/index.css";
 
-function App() {
-  const [count, setCount] = useState(0);
-
+export default function App() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1 className="text-3xl font-bold underline">Vite + React</h1>
-      <h2>Cartelera</h2>
-      <h3>Version 1.0.0</h3>
-      <p>Desarrollado por Rudvan</p>
-      <div className="card">
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          count is {count}
-        </button>
-        <p className="text-xl">
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Router>
+      <Routes>
+        {/* Página pública */}
+        <Route path="/" element={<Landing />} />
+
+        {/* Páginas protegidas (logueado) */}
+        <Route path="/home" element={<Home />} />
+        <Route path="/movie/:id" element={<FilmInfo />} />
+      </Routes>
+    </Router>
   );
 }
-
-export default App;
