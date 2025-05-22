@@ -32,7 +32,7 @@ function CardMd({ movie }) {
         <p className="text-yellow-400 mt-1 font-medium">
           ⭐ {movie.vote_average?.toFixed(1) || "N/A"} / 10
         </p>
-        <p className="text-sm mt-2 line-clamp-4">
+        <p className="text-sm mt-2 line-clamp-2">
           {movie.overview || "Sin descripción disponible."}
         </p>
 

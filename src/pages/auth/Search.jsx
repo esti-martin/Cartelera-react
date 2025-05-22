@@ -37,7 +37,7 @@ function Search() {
   }, [query]);
 
   return (
-    <section className="px-4 py-6 text-white">
+    <section className="px-4 py-6 pt-36 text-white">
       <h1 className="text-2xl font-bold mb-4 text-center">
         Resultados para: <span className="text-primary-color">{query}</span>
       </h1>
@@ -48,7 +48,7 @@ function Search() {
         <p className="text-center">No se encontraron resultados.</p>
       )}
 
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-6">
         {results.map((movie) => (
           <CardMd key={movie.id} movie={movie} />
         ))}
