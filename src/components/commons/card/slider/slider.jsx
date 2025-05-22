@@ -12,7 +12,8 @@ function Slider() {
       return;
     }
 
-    const url = "https://api.themoviedb.org/3/trending/movie/day?language=es-ES";
+    const url =
+      "https://api.themoviedb.org/3/trending/movie/day?language=es-ES";
 
     fetch(url, {
       method: "GET",
@@ -33,8 +34,9 @@ function Slider() {
   if (movies.length === 0) return <p>Cargando...</p>;
 
   const movie = movies[current];
-  const imageUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path || movie.poster_path}`;
-
+  const imageUrl = `https://image.tmdb.org/t/p/original${
+    movie.backdrop_path || movie.poster_path
+  }`;
 
   return (
     <div className="slider-container">
@@ -43,9 +45,13 @@ function Slider() {
         style={{ backgroundImage: `url(${imageUrl})` }}
       >
         <div className="slider-content">
-          <h2>{movie.title}</h2>
-          <p><strong>Año:</strong> {new Date(movie.release_date).getFullYear()}</p>
-          <p><strong>Valoración:</strong> ⭐ {movie.vote_average.toFixed(1)} / 10</p>
+          <h4 className="text-2xl font-bold bg-transparent">{movie.title}</h4>
+          <p>
+            <strong>Año:</strong> {new Date(movie.release_date).getFullYear()}
+          </p>
+          <p>
+            <strong>Valoración:</strong> ⭐ {movie.vote_average.toFixed(1)} / 10
+          </p>
           <p>{movie.overview}</p>
         </div>
         <button
@@ -68,9 +74,7 @@ function Slider() {
               key={i}
               className={`dot ${i === current ? "active" : ""}`}
               onClick={() => setCurrent(i)}
-            >
-              ●
-            </span>
+            ></span>
           ))}
         </div>
       </div>

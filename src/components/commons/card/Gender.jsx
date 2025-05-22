@@ -45,7 +45,7 @@ export default function Gender() {
 
   if (loading)
     return (
-      <div style={{ textAlign: "center", marginTop: "50px", color: "#d7e7ee" }}>
+      <div className="text-center mt-10 text-white">
         Cargando películas...
       </div>
     );
@@ -53,39 +53,20 @@ export default function Gender() {
   return (
     <>
       {Object.entries(genreData).map(([genreName, movies]) => (
-        <div
-          key={genreName}
-          style={{ marginBottom: "40px", textAlign: "center" }}
-        >
-          <h2 id={genreName} style={{ fontSize: "24px", marginBottom: "20px" }}>
+        <div key={genreName} className="mb-10 text-center">
+          <h2
+            id={genreName}
+            className="text-4xl mb-5 font-bold text-cyan-300 capitalize text-center"
+          >
             {genreName}
           </h2>
-          <div
-            style={{
-              display: "flex",
-              gap: "20px",
-              flexWrap: "wrap",
-              justifyContent: "center",
-            }}
-          >
+
+          <div className="flex flex-wrap justify-center gap-5">
             {movies.map((movie) => (
               <div
                 key={movie.id}
-                style={{
-                  width: "180px",
-                  background: "#150578",
-                  borderRadius: "8px",
-                  boxShadow: "0 4px 8px rgba(0,0,0,0.4)",
-                  transition: "transform 0.3s",
-                  cursor: "pointer",
-                }}
+                className="w-[180px] bg-indigo-900 rounded-lg shadow-lg transform transition-transform duration-300 cursor-pointer hover:scale-105"
                 onClick={() => navigate(`/movie/${movie.id}`)}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.transform = "scale(1.05)")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.transform = "scale(1)")
-                }
               >
                 <img
                   src={
@@ -94,46 +75,10 @@ export default function Gender() {
                       : "https://via.placeholder.com/180x270?text=No+Image"
                   }
                   alt={movie.title}
-                  style={{
-                    width: "100%",
-                    height: "270px",
-                    objectFit: "cover",
-                    borderTopLeftRadius: "8px",
-                    borderTopRightRadius: "8px",
-                    backgroundColor: "#000",
-                  }}
+                  className="w-full h-[270px] object-cover rounded-t-lg bg-black"
                 />
-                <div
-                  style={{
-                    padding: "10px",
-                    textAlign: "center",
-                    backgroundColor: "#150578",
-                    borderBottomLeftRadius: "8px",
-                    borderBottomRightRadius: "8px",
-                    height: "50px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <p
-                    style={{
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                      color: "#d7e7ee",
-                      margin: 0,
-                      whiteSpace: "normal",
-                      overflow: "hidden",
-                      lineHeight: "1.2",
-                      maxHeight: "2.4em",
-                      display: "-webkit-box",
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: "vertical",
-                      textDecoration: "none",
-                      textShadow: "none",
-                      background: "transparent",
-                    }}
-                  >
+                <div className="p-2 text-center bg-indigo-900 rounded-b-lg h-[50px] flex items-center justify-center">
+                  <p className="text-sm font-semibold text-blue-100 line-clamp-2">
                     {movie.title}
                   </p>
                 </div>
