@@ -7,9 +7,7 @@ export default function Home() {
     <>
       <div
         style={{
-          background: "#050522",
-          minHeight: "100vh",
-          color: "#d7e7ee",
+          minHeight: "100vh"
         }}
       >
         <Slider />

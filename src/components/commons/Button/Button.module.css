@@ -1,21 +1,23 @@
 .button {
   background-color: var(--primary-color);
-  color: var(--text-color);
+  color: var(--button-text-color);
   font-weight: bold;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   max-height: 40px;
-  transition: background-color, 0.5s;
+  transition: background-color 0.3s ease; /* Corrected transition syntax and added ease */
+}
 
-  &:hover {
-    background-color: var(--secondary-color);
-    color: var(--text-color);
-  }
+.button:hover {
+  background-color: var(--secondary-color);
+  color: var(--button-text-color); /* Ensure button text color remains consistent on hover */
+}
 
-  &:disabled {
+.button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}
+  background-color: var(--secondary-color); /* Optional: use a different bg for disabled state */
+  color: var(--tertiary-color); /* Optional: use a more muted text for disabled */
 }
