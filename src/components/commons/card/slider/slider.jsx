@@ -34,7 +34,7 @@ function Slider() {
       .catch((e) => console.error("Error en fetch:", e));
   }, [API_KEY]);
 
-  if (movies.length === 0) return <p>Cargando...</p>;
+  if (movies.length === 0) return <p className="p-4 text-[var(--text-color)]">Cargando...</p>;
 
   const movie = movies[current];
   const imageUrl = `https://image.tmdb.org/t/p/original${
@@ -60,7 +60,7 @@ function Slider() {
           <Button
             children="Ver Más"
             onClick={() => navigate(`/movie/${movie.id}`)}
-            className="bg-blue-500 hover:bg-blue-600 top-16"
+            className="top-16"
           />
         </div>
 

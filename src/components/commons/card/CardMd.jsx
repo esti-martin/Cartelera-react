@@ -14,7 +14,7 @@ function CardMd({ movie }) {
   };
 
   return (
-    <article className="flex items-start gap-4 border-2 border-white rounded-lg shadow-md p-4 w-full max-w-3xl mx-auto">
+    <article className="flex items-start gap-4 border-2 border-[var(--tertiary-color)] dark:border-gray-700 rounded-lg shadow-md p-4 w-full max-w-3xl mx-auto bg-[var(--background-color)] dark:bg-slate-800 text-[var(--text-color)]">
       {/* Movie poster */}
       <img
         src={
@@ -27,9 +27,9 @@ function CardMd({ movie }) {
       />
 
       {/* Movie info */}
-      <div className="flex flex-col text-slate-100 w-full">
-        <h2 className="text-xl font-semibold text-cyan-400">{movie.title}</h2>
-        <p className="text-yellow-400 mt-1 font-medium">
+      <div className="flex flex-col w-full">
+        <h2 className="text-xl font-semibold text-cyan-500 dark:text-cyan-400">{movie.title}</h2>
+        <p className="text-yellow-500 dark:text-yellow-400 mt-1 font-medium">
           ⭐ {movie.vote_average?.toFixed(1) || "N/A"} / 10
         </p>
         <p className="text-sm mt-2 line-clamp-2">

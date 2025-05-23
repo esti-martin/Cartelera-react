@@ -1,5 +1,3 @@
-import NavbarGuest from "@components/navbar/guest/NavbarGuest";
-
 export default function Landing() {
   return (
     <>

@@ -1,23 +1,48 @@
 :root {
+  /* Light Mode (Base Styles) */
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --tertiary-color: #e9ecef; /* Light gray for subtle backgrounds/borders */
+  --background-color: #ffffff;
+  --text-color: #212529; /* Dark text for light background */
+  --navbar-border-color: rgba(0, 0, 0, 0.1); /* Darker border for light mode */
+  --button-text-color: #FFFFFF; /* White text for buttons */
+  --slider-overlay-color: rgba(0, 0, 0, 0.3);
+  --slider-dot-inactive-color: rgba(0, 0, 0, 0.4);
+  --slider-dot-active-color: var(--primary-color);
+
+  --border-radius: 8px;
+}
+
+html.dark {
+  /* Dark Mode Styles (Your original styles) */
   --primary-color: #449dd1;
   --secondary-color: #192bc2;
   --tertiary-color: #150578;
   --background-color: #050522;
   --text-color: #d7e7ee;
-
-  --border-radius: 8px;
+  --navbar-border-color: rgba(255, 255, 255, 0.1); /* Lighter border for dark mode (original) */
+  --button-text-color: #FFFFFF; /* White text for buttons */
+  --slider-overlay-color: rgba(0, 0, 0, 0.5); /* Original overlay for dark mode */
+  --slider-dot-inactive-color: rgba(255, 255, 255, 0.4); /* Lighter inactive dot for dark mode */
+  --slider-dot-active-color: var(--primary-color); /* Active dot color for dark mode */
 }
 
 * {
   font-family: Arial, Helvetica, sans-serif;
-  background-color: var(--background-color);
-  color: var(--text-color);
+  box-sizing: border-box; /* Improves layout consistency */
+  margin: 0; /* Basic reset */
+  padding: 0; /* Basic reset */
 }
 
-/* body {
-  max-width: 1200px;
-  margin: auto;
-} */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth theme transition */
+  min-height: 100vh; /* Ensure body covers full viewport height */
+  /* max-width: 1200px; */ /* Kept as commented from original */
+  /* margin: auto; */ /* Kept as commented from original */
+}
 
 h1 {
   font-size: 2.5rem;
@@ -35,7 +60,7 @@ p {
   font-size: 1rem;
 }
 
-html{
+html {
   scroll-behavior: smooth;
   scroll-padding-top: 200px;
 }

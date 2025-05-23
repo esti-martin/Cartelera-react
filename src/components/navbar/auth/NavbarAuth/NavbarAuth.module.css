@@ -9,7 +9,7 @@
   background-color: transparent; /* fondo con opacidad */
   backdrop-filter: blur(10px); /* 💫 el blur mágico */
   -webkit-backdrop-filter: blur(10px); /* soporte Safari */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* opcional: borde sutil */
+  border-bottom: 1px solid var(--navbar-border-color); /* opcional: borde sutil */
 }
 
 .logoNav {
@@ -28,7 +28,7 @@
 
 .logoNav ul li a {
   font-size: 1.2rem;
-  color: white;
+  color: var(--text-color);
   font-weight: bold;
   text-decoration: none;
   transition: color 0.2s;
@@ -36,7 +36,7 @@
 }
 
 .logoNav ul li a:hover {
-  color: #00d8ff; /* o tu color primario */
+  color: var(--primary-color); /* o tu color primario */
   background-color: transparent;
 }
 
@@ -48,5 +48,9 @@
 }
 
 .searchIcon {
-    background-color: transparent;
+  background-color: transparent;
+}
+
+a {
+  background-color: transparent;
 }
