@@ -1,6 +1,7 @@
 import styles from "./NavbarAuth.module.css";
 import { CgProfile } from "react-icons/cg";
 import SearchBox from "../SearchBox/SearchBox";
+import ThemeButton from "@components/commons/theme-button/ThemeButton";
 import { Link } from "react-router-dom";
 
 function NavbarAuth() {
@@ -31,6 +32,7 @@ function NavbarAuth() {
         <Link to="/user" className={styles.profileLink}>
           <CgProfile className={styles.searchIcon} size={32} />
         </Link>
+        <ThemeButton />
       </section>
     </nav>
   );
