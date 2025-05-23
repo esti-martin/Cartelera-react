@@ -21,9 +21,7 @@ export default function Home() {
             color: "#d7e7ee",
             fontWeight: "bold",
           }}
-        >
-    
-        </h1>
+        ></h1>
         <Gender />
       </div>
     </>

@@ -50,7 +50,7 @@ export default function Gender() {
 
   return (
     <>
-      <div className="flex flex-wrap justify-center gap-5">
+      <div className="flex flex-wrap justify-center gap-5 flex-col">
         {Object.entries(genreData).map(([genreName, movies]) => (
           <div key={genreName} className="mb-20 text-center gap-5">
             <h2
@@ -60,7 +60,7 @@ export default function Gender() {
               {genreName}
             </h2>
 
-            <div className="flex flex-wrap justify-center gap-5">
+            <div className="flex flex-wrap justify-center gap-5 ">
               {movies.map((movie) => (
                 <div
                   key={movie.id}

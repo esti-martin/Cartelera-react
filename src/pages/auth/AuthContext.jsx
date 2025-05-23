@@ -1,22 +1,18 @@
 // src/contexts/AuthContext.jsx
-import { createContext, useState, useContext } from "react";
+import { createContext, useContext } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState({
-    name: "Leire",
-    email: "leire@example.com",
-    photoURL: "https://i.pravatar.cc/100", // imagen de prueba
-  });
+  const { user, isAuthenticated, isLoading, logout: auth0Logout } = useAuth0();
 
   const logout = () => {
-    setUser(null);
-    // También puedes redirigir al login si hace falta
+    auth0Logout({ logoutParams: { returnTo: window.location.origin } });
   };
 
   return (
-    <AuthContext.Provider value={{ user, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, isLoading, logout }}>
       {children}
     </AuthContext.Provider>
   );

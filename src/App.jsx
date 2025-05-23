@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Landing from "@pages/guest/Landing";
 import Home from "@pages/auth/Home";
 import FilmInfo from "@pages/auth/FilmInfo";
@@ -7,23 +7,28 @@ import NavbarGuest from "./components/navbar/guest/NavbarGuest.jsx";
 import NavbarAuth from "./components/navbar/auth/NavbarAuth/NavbarAuth.jsx";
 import { useEffect } from "react";
 import ProtectedRoute from "./components/Auth0/ProtectedRoute.jsx";
-import UserProfile from "@pages/auth/userprofile";
+import Search from "@pages/auth/Search";
+import Footer from "@components/footer/footer";
+import UserProfile from "@pages/auth/userprofile.jsx";
 import "@styles/index.css";
+import { AuthProvider } from "@pages/auth/AuthContext";
 
 export default function App() {
-  const { isAuthenticated, isLoading } = useAuth0();
+  const { user: auth0User, isAuthenticated, isLoading } = useAuth0();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    if (isAuthenticated) {
+    // Only redirect to /home if authenticated and currently on the root path.
+    if (isAuthenticated && location.pathname === "/") {
       navigate("/home");
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, location.pathname, navigate]);
 
   if (isLoading) return null;
 
   return (
-    <>
+    <AuthProvider>
       {/* Navbar siempre visible, cambia según autenticación */}
       {isAuthenticated ? <NavbarAuth /> : <NavbarGuest />}
 
@@ -57,7 +62,16 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/search"
+          element={
+            <ProtectedRoute>
+              <Search />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
-    </>
+      <Footer />
+    </AuthProvider>
   );
 }
