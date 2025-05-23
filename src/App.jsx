@@ -29,49 +29,53 @@ export default function App() {
 
   return (
     <AuthProvider>
+      <div className="app-container">
       {/* Navbar siempre visible, cambia según autenticación */}
       {isAuthenticated ? <NavbarAuth /> : <NavbarGuest />}
+      
+        <div className="app-content">
+          <Routes>
+            {/* Página pública */}
+            <Route path="/" element={<Landing />} />
 
-      <Routes>
-        {/* Página pública */}
-        <Route path="/" element={<Landing />} />
+            {/* Páginas protegidas (logueado) */}
+            <Route
+              path="/home"
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/movie/:id"
+              element={
+                <ProtectedRoute>
+                  <FilmInfo />
+                </ProtectedRoute>
+              }
+            />
 
-        {/* Páginas protegidas (logueado) */}
-        <Route
-          path="/home"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/movie/:id"
-          element={
-            <ProtectedRoute>
-              <FilmInfo />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/user"
-          element={
-            <ProtectedRoute>
-              <UserProfile />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/search"
-          element={
-            <ProtectedRoute>
-              <Search />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-      <Footer />
+            <Route
+              path="/user"
+              element={
+                <ProtectedRoute>
+                  <UserProfile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/search"
+              element={
+                <ProtectedRoute>
+                  <Search />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
     </AuthProvider>
   );
 }
