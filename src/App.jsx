@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import ProtectedRoute from "./components/Auth0/ProtectedRoute.jsx";
 import Search from "@pages/auth/Search";
 import Footer from "@components/footer/footer";
-import UserProfile from "@pages/auth/UserProfile";
+import UserProfile from "@pages/auth/userprofile.jsx";
 import "@styles/index.css";
 import { AuthProvider } from "@pages/auth/AuthContext";
 
