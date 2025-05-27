@@ -3,8 +3,11 @@ import { CgProfile } from "react-icons/cg";
 import SearchBox from "../SearchBox/SearchBox";
 import ThemeButton from "@components/commons/theme-button/ThemeButton";
 import { Link } from "react-router-dom";
+import type { JSX } from "react";
 
-function NavbarAuth() {
+
+// No recibe props, así que no necesitas tipado extra
+function NavbarAuth(): JSX.Element {
   return (
     <nav className={styles.nav}>
       <section className={styles.logoNav}>

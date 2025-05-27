@@ -1,7 +1,9 @@
 import styles from './NavbarGuest.module.css';
-import LoginButton from './LoginButton/LoginButton.jsx';
+import LoginButton from './LoginButton/LoginButton';
+import type { JSX } from "react";
 
-function NavbarGuest() {
+
+function NavbarGuest(): JSX.Element  {
   return (
     <nav className={styles.nav}>
         <img src="/src/assets/logo.png" alt="logo Hooks & Chill" />
