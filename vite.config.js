@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 
 export default defineConfig({
-  base: "./", // Asegura rutas relativas para preview y GitHub Pages
+  base: "/", // Asegura rutas relativas para preview y GitHub Pages
   plugins: [react()],
   resolve: {
     alias: {
