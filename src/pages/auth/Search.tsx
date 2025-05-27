@@ -4,10 +4,25 @@ import CardMd from "@components/commons/card/CardMd"; // Ajusta el path si es ne
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
+// Define la interfaz para las películas que vas a manejar
+interface Movie {
+  id: number;
+  title: string;
+  poster_path?: string;
+  release_date?: string;
+  vote_average?: number;
+  overview?: string;
+  // Puedes añadir más campos según tu API y uso
+}
+
+interface ApiResponse {
+  results: Movie[];
+}
+
 function Search() {
   const [searchParams] = useSearchParams();
-  const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [results, setResults] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const query = searchParams.get("q");
 
@@ -17,7 +32,9 @@ function Search() {
     setLoading(true);
 
     fetch(
-      `https://api.themoviedb.org/3/search/movie?query=${query}&language=es-ES`,
+      `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
+        query
+      )}&language=es-ES`,
       {
         headers: {
           accept: "application/json",
@@ -25,8 +42,11 @@ function Search() {
         },
       }
     )
-      .then((res) => res.json())
-      .then((data) => {
+      .then((res) => {
+        if (!res.ok) throw new Error("Error en la respuesta");
+        return res.json();
+      })
+      .then((data: ApiResponse) => {
         setResults(data.results || []);
         setLoading(false);
       })
