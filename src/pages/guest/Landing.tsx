@@ -3,7 +3,9 @@ export default function Landing() {
     <>
       <div
         className="h-screen relative min-h-[80vh] bg-cover bg-center bg-no-repeat flex flex-col justify-center items-center px-4 text-white"
-        style={{ backgroundImage: "url('/src/assets/Best-Movies-List.webp')" }}
+        style={{
+          backgroundImage: "url('../../../public/Best-Movies-List.webp')",
+        }}
       >
         {/* Overlay oscuro */}
         <div className="absolute inset-0 bg-black/60 z-0"></div>
