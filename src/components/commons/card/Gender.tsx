@@ -1,3 +1,4 @@
+// filepath: /cartelera-react/cartelera-react/src/components/commons/card/Gender.tsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -8,9 +9,19 @@ const IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
 
 const genresToShow = ["Acción", "Comedia", "Drama"];
 
+interface Movie {
+  id: number;
+  title: string;
+  poster_path: string | null;
+}
+
+interface GenreData {
+  [key: string]: Movie[];
+}
+
 export default function Gender() {
-  const [genreData, setGenreData] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [genreData, setGenreData] = useState<GenreData>({});
+  const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,11 +31,11 @@ export default function Gender() {
           `${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=es-ES`
         );
         const genreList = genreRes.data.genres;
-        const selectedGenres = genreList.filter((g) =>
+        const selectedGenres = genreList.filter((g: { name: string }) =>
           genresToShow.includes(g.name)
         );
 
-        const data = {};
+        const data: GenreData = {};
         for (let genre of selectedGenres) {
           const moviesRes = await axios.get(
             `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genre.id}&sort_by=popularity.desc`
@@ -50,11 +61,12 @@ export default function Gender() {
 
   return (
     <>
-      {Object.entries(genreData).map(([genreName, movies]) => (
-        <div key={genreName} className="mb-10 text-center">
-          <h2
-            id={genreName}
-            className="text-4xl mb-5 font-bold text-cyan-300 capitalize text-center"
+      <div className="flex flex-wrap justify-center gap-5 flex-col">
+        {Object.entries(genreData).map(([genreName, movies]) => (
+          <div key={genreName} className="mb-20 text-center gap-5">
+            <h2
+              id={genreName}
+              className="text-4xl mb-5 font-bold text-cyan-500 dark:text-cyan-300 capitalize text-center"
             >
               {genreName}
             </h2>
@@ -85,7 +97,7 @@ export default function Gender() {
             </div>
           </div>
         ))}
-
+      </div>
     </>
   );
 }
