@@ -45,9 +45,7 @@ export default function Gender() {
 
   if (loading)
     return (
-      <div className="text-center mt-10 text-white">
-        Cargando películas...
-      </div>
+      <div className="text-center mt-10 text-[var(--text-color)]">Cargando películas...</div>
     );
 
   return (
@@ -57,36 +55,37 @@ export default function Gender() {
           <h2
             id={genreName}
             className="text-4xl mb-5 font-bold text-cyan-300 capitalize text-center"
-          >
-            {genreName}
-          </h2>
+            >
+              {genreName}
+            </h2>
 
-          <div className="flex flex-wrap justify-center gap-5">
-            {movies.map((movie) => (
-              <div
-                key={movie.id}
-                className="w-[180px] bg-indigo-900 rounded-lg shadow-lg transform transition-transform duration-300 cursor-pointer hover:scale-105"
-                onClick={() => navigate(`/movie/${movie.id}`)}
-              >
-                <img
-                  src={
-                    movie.poster_path
-                      ? `${IMAGE_BASE}${movie.poster_path}`
-                      : "https://via.placeholder.com/180x270?text=No+Image"
-                  }
-                  alt={movie.title}
-                  className="w-full h-[270px] object-cover rounded-t-lg bg-black"
-                />
-                <div className="p-2 text-center bg-indigo-900 rounded-b-lg h-[50px] flex items-center justify-center">
-                  <p className="text-sm font-semibold text-blue-100 line-clamp-2">
-                    {movie.title}
-                  </p>
+            <div className="flex flex-wrap justify-center gap-5 ">
+              {movies.map((movie) => (
+                <div
+                  key={movie.id}
+                  className="w-[180px] bg-slate-200 dark:bg-indigo-900 rounded-lg shadow-lg transform transition-transform duration-300 cursor-pointer hover:scale-105"
+                  onClick={() => navigate(`/movie/${movie.id}`)}
+                >
+                  <img
+                    src={
+                      movie.poster_path
+                        ? `${IMAGE_BASE}${movie.poster_path}`
+                        : "https://via.placeholder.com/180x270?text=No+Image"
+                    }
+                    alt={movie.title}
+                    className="w-full h-[270px] object-cover rounded-t-lg bg-gray-300 dark:bg-black"
+                  />
+                  <div className="p-2 text-center bg-cyan-500 dark:bg-cyan-600 rounded-b-lg h-[50px] flex items-center justify-center">
+                    <p className="text-sm text-white font-bold line-clamp-2 text-center">
+                      {movie.title}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+
     </>
   );
 }

@@ -1,9 +1,6 @@
-import NavbarGuest from "@components/navbar/guest/NavbarGuest";
-
 export default function Landing() {
   return (
     <>
-      <NavbarGuest />
       <div
         className="h-screen relative min-h-[80vh] bg-cover bg-center bg-no-repeat flex flex-col justify-center items-center px-4 text-white"
         style={{ backgroundImage: "url('/src/assets/Best-Movies-List.webp')" }}

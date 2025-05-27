@@ -1,8 +1,19 @@
+import React, { ReactNode, MouseEventHandler } from "react";
 import styles from "./Button.module.css";
 
-//Añadimos las props onClick, disabled y className para que el botón sea flexible y puedas controlar su comportamiento y estilos desde fuera.
-//Children sigue permitiendo que el contenido sea dinámico.
-function Button({ children, onClick, disabled = false, className = "" }) {
+type ButtonProps = {
+  children: ReactNode;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
+  className?: string;
+};
+
+function Button({
+  children,
+  onClick,
+  disabled = false,
+  className = "",
+}: ButtonProps) {
   return (
     <button
       className={`${styles.button} ${className}`}

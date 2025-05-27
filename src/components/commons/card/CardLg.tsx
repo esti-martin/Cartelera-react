@@ -80,10 +80,10 @@ function CardLg({ movieId }) {
 
   // Main component render
   return (
-    <div className="max-w-[1200px] mx-auto px-4 bg-[var(--background-color)]">
-      <div className="flex flex-col p-4 w-full justify-center space-y-4 text-[#d7e7ee]">
+    <div className="max-w-[1200px] mx-auto px-4 bg-[var(--background-color)] text-[var(--text-color)]">
+      <div className="flex flex-col p-4 w-full justify-center space-y-4">
         {/* Movie details container */}
-        <article className="flex flex-col md:flex-row gap-6 items-start bg-[#0f0f24] p-6 rounded-lg shadow-lg">
+        <article className="flex flex-col md:flex-row gap-6 items-start border-2 border-[var(--tertiary-color)] dark:border-gray-700 rounded-lg shadow-md p-6 bg-[var(--background-color)] dark:bg-slate-800">
           {/* Movie poster section */}
           <div className="md:w-1/3 w-full flex justify-center">
             <img
@@ -96,17 +96,17 @@ function CardLg({ movieId }) {
           {/* Movie information section */}
           <div className="md:w-2/3 w-full">
             {/* Movie title */}
-            <h2 className="text-3xl font-bold text-cyan-400">{movie.title}</h2>
+            <h2 className="text-3xl font-bold text-cyan-500 dark:text-cyan-400">{movie.title}</h2>
             {/* Release date */}
-            <p className="mt-2 text-lg">
+            <p className="mt-2 text-lg dark:text-white text-black">
               Fecha de lanzamiento: {movie.release_date}
             </p>
             {/* Rating */}
-            <p className="text-yellow-400 mt-1 font-semibold">
+            <p className="text-yellow-500 dark:text-yellow-400 mt-1 font-semibold">
               ⭐ {movie.vote_average.toFixed(1)} / 10
             </p>
             {/* Movie overview/description */}
-            <p className="mt-3 text-sm">{movie.overview}</p>
+            <p className="mt-3 text-sm dark:text-white text-black">{movie.overview}</p>
 
             {/* Cast section */}
             <div className="mt-6">
@@ -126,8 +126,8 @@ function CardLg({ movieId }) {
                       className="rounded"
                     />
                     {/* Actor name and character */}
-                    <p>{actor.name}</p>
-                    <p className="italic text-gray-400">{actor.character}</p>
+                    <p className="dark:text-white text-black">{actor.name}</p>
+                    <p className="italic text-gray-500 dark:text-gray-400">{actor.character}</p>
                   </div>
                 ))}
               </div>

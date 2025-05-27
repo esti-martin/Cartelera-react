@@ -1,18 +1,13 @@
 import React from "react";
 import Gender from "@components/commons/card/Gender";
-import Footer from "@components/footer/footer";
 import Slider from "@components/commons/card/slider/slider";
-import NavbarAuth from "@components/navbar/auth/NavbarAuth/NavbarAuth";
 
 export default function Home() {
   return (
     <>
-      <NavbarAuth />
       <div
         style={{
-          background: "#050522",
-          minHeight: "100vh",
-          color: "#d7e7ee",
+          minHeight: "100vh"
         }}
       >
         <Slider />
@@ -24,11 +19,8 @@ export default function Home() {
             color: "#d7e7ee",
             fontWeight: "bold",
           }}
-        >
-          GÉNEROS
-        </h1>
+        ></h1>
         <Gender />
-        <Footer />
       </div>
     </>
   );
