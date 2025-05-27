@@ -1,5 +1,4 @@
-import { useContext } from "react";
-import { AuthContext } from "./AuthContext";
+import { useAuthContext } from "./AuthContext";
 import "./userprofile.css";
 
 // Define una interfaz para el usuario
@@ -9,14 +8,8 @@ interface User {
   photoURL: string;
 }
 
-// Define la forma del contexto
-interface AuthContextType {
-  user: User | null;
-  logout: () => void;
-}
-
 function UserProfile() {
-  const { user, logout } = useContext(AuthContext) as AuthContextType;
+  const { user, logout } = useAuthContext();
 
   if (!user) return <p>No estás logueado</p>;
 
