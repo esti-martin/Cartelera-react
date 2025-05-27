@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 
 export default defineConfig({
-  base: "./", // Esto asegura rutas relativas correctas para preview y GitHub Pages
+  base: "./", // Asegura rutas relativas para preview y GitHub Pages
   plugins: [react()],
   resolve: {
     alias: {
@@ -20,7 +20,7 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
-    port: 3000,
+    port: 5173,
     open: true,
   },
 });
