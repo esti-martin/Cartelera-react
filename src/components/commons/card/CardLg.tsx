@@ -4,15 +4,51 @@ import React, { useEffect, useState } from "react";
 // Base URLs for TMDB image API
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w342"; // For movie posters
 const PROFILE_BASE_URL = "https://image.tmdb.org/t/p/w185"; // For actor profile pictures
-const API_KEY = import.meta.env.VITE_API_KEY_SHORT; // Get API key from environment variables
+const API_KEY = import.meta.env.VITE_API_KEY_SHORT;
+
+
+// Type definitions
+interface Movie {
+  id: number;
+  title: string;
+  poster_path: string;
+  release_date: string;
+  vote_average: number;
+  overview: string;
+}
+
+interface Video {
+  key: string;
+  type: string;
+  site: string;
+}
+
+interface VideoResponse {
+  results: Video[];
+}
+
+interface CastMember {
+  id: number;
+  name: string;
+  character: string;
+  profile_path: string | null;
+}
+
+interface CreditsResponse {
+  cast: CastMember[];
+}
+
+interface CardLgProps {
+  movieId: number | string;
+}
 
 // CardLg component that displays detailed movie information
-function CardLg({ movieId }) {
+function CardLg({ movieId }: CardLgProps) {
   // State management for movie data, trailer, cast, and error handling
-  const [movie, setMovie] = useState(null); // Stores the movie details
-  const [trailerKey, setTrailerKey] = useState(null); // Stores the YouTube trailer key
-  const [cast, setCast] = useState([]); // Stores the movie cast information
-  const [error, setError] = useState(null); // Stores any error messages
+  const [movie, setMovie] = useState<Movie | null>(null); // Stores the movie details
+  const [trailerKey, setTrailerKey] = useState<string | null>(null); // Stores the YouTube trailer key
+  const [cast, setCast] = useState<CastMember[]>([]); // Stores the movie cast information
+  const [error, setError] = useState<string | null>(null); // Stores any error messages
 
   // Effect hook to fetch movie data when component mounts or movieId changes
   useEffect(() => {
@@ -20,7 +56,7 @@ function CardLg({ movieId }) {
     if (!movieId) return;
 
     // Configure fetch options
-    const options = {
+    const options: RequestInit = {
       method: "GET",
       headers: {
         accept: "application/json",
@@ -37,7 +73,7 @@ function CardLg({ movieId }) {
         if (!res.ok) throw new Error("Error cargando película");
         return res.json();
       })
-      .then((data) => {
+      .then((data: Movie) => {
         setMovie(data); // Store movie data in state
 
         // Fetch movie trailer
@@ -46,7 +82,7 @@ function CardLg({ movieId }) {
           options
         )
           .then((res) => res.json())
-          .then((videoData) => {
+          .then((videoData: VideoResponse) => {
             // Find the first YouTube trailer in the results
             const trailer = videoData.results.find(
               (v) => v.type === "Trailer" && v.site === "YouTube"
@@ -61,13 +97,13 @@ function CardLg({ movieId }) {
           options
         )
           .then((res) => res.json())
-          .then((creditsData) => {
+          .then((creditsData: CreditsResponse) => {
             // Store first 12 cast members
             setCast(creditsData.cast.slice(0, 12));
           })
           .catch(() => {}); // Silently handle cast fetch errors
       })
-      .catch((err) => {
+      .catch((err: Error) => {
         console.error(err);
         setError("No se pudo cargar la película.");
       });

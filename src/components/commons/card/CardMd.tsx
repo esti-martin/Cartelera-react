@@ -4,12 +4,24 @@ import Button from "@components/commons/Button/Button";
 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w185";
 
-function CardMd({ movie }) {
+interface Movie {
+  id: number;
+  title: string;
+  poster_path: string | null;
+  vote_average: number;
+  overview: string;
+}
+
+interface CardMdProps {
+  movie: Movie;
+}
+
+function CardMd({ movie }: CardMdProps) {
   const navigate = useNavigate();
 
   if (!movie) return null;
 
-  const handleClick = () => {
+  const handleClick = (): void => {
     navigate(`/movie/${movie.id}`);
   };
 
