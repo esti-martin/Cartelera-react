@@ -13,7 +13,7 @@ function NavbarAuth(): JSX.Element {
         <a className="bg-transparent" href="/home">
           <img
             className="bg-transparent"
-            src="../../../public/logo.png"
+            src="/logo.png"
             alt="logo Hooks & Chill"
           />
         </a>

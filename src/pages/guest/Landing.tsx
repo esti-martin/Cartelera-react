@@ -4,7 +4,7 @@ export default function Landing() {
       <div
         className="h-screen relative min-h-[80vh] bg-cover bg-center bg-no-repeat flex flex-col justify-center items-center px-4 text-white"
         style={{
-          backgroundImage: "url('../../../public/Best-Movies-List.webp')",
+          backgroundImage: "url(/Best-Movies-List.webp)",
         }}
       >
         {/* Overlay oscuro */}
