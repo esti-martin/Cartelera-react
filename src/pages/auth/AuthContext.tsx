@@ -1,45 +1,44 @@
-// src/contexts/AuthContext.tsx
-import { createContext, useState, useContext, ReactNode } from "react";
+import { createContext, useContext, ReactNode } from "react";
+import { useAuth0, User } from "@auth0/auth0-react";
 
-// 1. Tipo para el usuario
-interface User {
-  name: string;
-  email: string;
-  photoURL: string;
-}
-
-// 2. Tipo para el contexto
 interface AuthContextType {
-  user: User | null;
+  user: User | undefined;
+  isAuthenticated: boolean;
+  isLoading: boolean;
   logout: () => void;
 }
 
-// 3. Crear el contexto con tipo explícito
-export const AuthContext = createContext<AuthContextType>({
-  user: null,
-  logout: () => {},
-});
+export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// 4. Tipar las props del AuthProvider
 interface AuthProviderProps {
   children: ReactNode;
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<User | null>({
-    name: "Leire",
-    email: "leire@example.com",
-    photoURL: "https://i.pravatar.cc/100", // imagen de prueba
-  });
+  const { user, isAuthenticated, isLoading, logout: auth0Logout } = useAuth0();
 
-  const logout = () => {
-    setUser(null);
-    // Aquí puedes redirigir si es necesario
+  const logout = (): void => {
+    auth0Logout({ logoutParams: { returnTo: window.location.origin } });
+  };
+
+  const value: AuthContextType = {
+    user,
+    isAuthenticated,
+    isLoading,
+    logout
   };
 
   return (
-    <AuthContext.Provider value={{ user, logout }}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );
+};
+
+export const useAuthContext = (): AuthContextType => {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuthContext must be used within an AuthProvider');
+  }
+  return context;
 };
