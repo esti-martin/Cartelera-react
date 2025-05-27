@@ -9,9 +9,9 @@ import { useEffect } from "react";
 import ProtectedRoute from "./components/Auth0/ProtectedRoute.jsx";
 import Search from "@pages/auth/Search";
 import Footer from "@components/footer/footer";
-import UserProfile from "@pages/auth/userprofile.jsx";
+import UserProfile from "@pages/auth/userpage/userprofile.js";
 import "@styles/index.css";
-import { AuthProvider } from "@pages/auth/AuthContext";
+import { AuthProvider } from "@pages/auth/userpage/AuthContext.js";
 
 export default function App() {
   const { user: auth0User, isAuthenticated, isLoading } = useAuth0();

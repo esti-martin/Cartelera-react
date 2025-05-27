@@ -11,7 +11,7 @@ const domain = import.meta.env.VITE_AUTH0_DOMAIN;
 const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
 
 //authorizationParams.redirect_uri: Es la URL a la que Auth0 redirigirá después de iniciar sesión. Normalmente es la raíz de tu app (window.location.origin).
-createRoot(document.getElementById("root")).render(
+createRoot(document.getElementById("root") as HTMLElement).render(
   <StrictMode>
     <Auth0Provider
       domain={domain}
