@@ -2,12 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CgSearch } from "react-icons/cg";
 import styles from "./SearchBox.module.css";
+import type { JSX } from "react";
 
-function SearchBox() {
-  const [query, setQuery] = useState("");
+function SearchBox(): JSX.Element {
+  const [query, setQuery] = useState<string>("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (query.trim() !== "") {
       navigate(`/search?q=${encodeURIComponent(query.trim())}`);
@@ -21,7 +22,7 @@ function SearchBox() {
         type="text"
         placeholder="Buscar"
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
       />
       <button className="bg-transparent" type="submit">
         <CgSearch className={styles.searchIcon} size={32} />
