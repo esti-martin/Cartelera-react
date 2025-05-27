@@ -1,33 +1,33 @@
-import { useEffect, useState } from "react";
+import { JSX, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import CardMd from "@components/commons/card/CardMd"; // Ajusta el path si es necesario
+import CardMd, { MovieMd } from "@components/commons/card/CardMd"; // MovieMd type imported from CardMd
 
-const API_KEY = import.meta.env.VITE_API_KEY;
+const API_KEY: string | undefined = import.meta.env.VITE_API_KEY;
 
-// Define la interfaz para las películas que vas a manejar
-interface Movie {
-  id: number;
-  title: string;
-  poster_path?: string;
-  release_date?: string;
-  vote_average?: number;
-  overview?: string;
-  // Puedes añadir más campos según tu API y uso
-}
+// Local Movie interface removed, using imported one now.
 
 interface ApiResponse {
-  results: Movie[];
+  results: MovieMd[];
 }
 
-function Search() {
+function Search(): JSX.Element {
   const [searchParams] = useSearchParams();
-  const [results, setResults] = useState<Movie[]>([]);
+  const [results, setResults] = useState<MovieMd[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const query = searchParams.get("q");
 
   useEffect(() => {
-    if (!query) return;
+    if (!API_KEY) { 
+      console.error("API key no definida en Search.tsx");
+      setLoading(false);
+      return;
+    }
+    if (!query) {
+      setResults([]); // Limpiar resultados si no hay query
+      setLoading(false);
+      return;
+    }
 
     setLoading(true);
 
@@ -50,7 +50,7 @@ function Search() {
         setResults(data.results || []);
         setLoading(false);
       })
-      .catch((err) => {
+      .catch((err: Error) => {
         console.error("Error al buscar:", err);
         setLoading(false);
       });

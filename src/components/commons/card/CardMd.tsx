@@ -1,69 +1,63 @@
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import CardMd, { Movie } from "@components/commons/card/CardMd";
+import { JSX } from "react";
+import { useNavigate } from "react-router-dom";
+import Button from "@components/commons/Button/Button";
 
-const API_KEY = import.meta.env.VITE_API_KEY as string;
-
-interface ApiResponse {
-  results: Movie[];
+// Puedes ajustar la interfaz según el contenido exacto de tu objeto movie
+export interface MovieMd {
+  id: number;
+  title: string;
+  poster_path?: string;
+  vote_average?: number;
+  overview?: string;
 }
 
-function Search() {
-  const [searchParams] = useSearchParams();
-  const [results, setResults] = useState<Movie[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w185";
 
-  const query = searchParams.get("q");
+interface CardMdProps {
+  movie: MovieMd;
+}
 
-  useEffect(() => {
-    if (!query) return;
+function CardMd({ movie }: CardMdProps): JSX.Element | null {
+  const navigate = useNavigate();
 
-    setLoading(true);
+  if (!movie) return null;
 
-    fetch(
-      `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
-        query
-      )}&language=es-ES`,
-      {
-        headers: {
-          accept: "application/json",
-          Authorization: `Bearer ${API_KEY}`,
-        },
-      }
-    )
-      .then((res) => {
-        if (!res.ok) throw new Error("Error en la respuesta");
-        return res.json();
-      })
-      .then((data: ApiResponse) => {
-        setResults(data.results || []);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error al buscar:", err);
-        setLoading(false);
-      });
-  }, [query]);
+  const handleClick = (): void => {
+    navigate(`/movie/${movie.id}`);
+  };
 
   return (
-    <section className="px-4 py-6 text-white">
-      <h1 className="text-2xl font-bold mb-4 text-center">
-        Resultados para: <span className="text-primary-color">{query}</span>
-      </h1>
+    <article className="flex items-start gap-4 border-2 border-[var(--tertiary-color)] dark:border-gray-700 rounded-lg shadow-md p-4 w-full max-w-3xl mx-auto bg-[var(--background-color)] dark:bg-slate-800 text-[var(--text-color)]">
+      {/* Movie poster */}
+      <img
+        src={
+          movie.poster_path
+            ? `${IMAGE_BASE_URL}${movie.poster_path}`
+            : "https://via.placeholder.com/92x138?text=No+Image"
+        }
+        alt={movie.title}
+        className="w-[92px] h-auto rounded-md object-cover"
+      />
 
-      {loading && <p className="text-center">Buscando...</p>}
+      {/* Movie info */}
+      <div className="flex flex-col w-full">
+        <h2 className="text-xl font-semibold text-cyan-500 dark:text-cyan-400">
+          {movie.title}
+        </h2>
+        <p className="text-yellow-500 dark:text-yellow-400 mt-1 font-medium">
+          ⭐ {movie.vote_average?.toFixed(1) || "N/A"} / 10
+        </p>
+        <p className="text-sm mt-2 line-clamp-2">
+          {movie.overview || "Sin descripción disponible."}
+        </p>
 
-      {!loading && results.length === 0 && (
-        <p className="text-center">No se encontraron resultados.</p>
-      )}
-
-      <div className="flex flex-col gap-6">
-        {results.map((movie) => (
-          <CardMd key={movie.id} movie={movie} />
-        ))}
+        {/* Botón igual al del Slider */}
+        <Button onClick={handleClick} className="mt-4 self-start">
+          Ver Más
+        </Button>
       </div>
-    </section>
+    </article>
   );
 }
 
-export default Search;
+export default CardMd;
