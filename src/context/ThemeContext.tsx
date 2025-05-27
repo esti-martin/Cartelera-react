@@ -1,10 +1,24 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 
-const ThemeContext = createContext();
+// Define la forma del contexto
+interface ThemeContextType {
+  theme: string;
+  toggleTheme: () => void;
+}
 
-export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(() => {
-    return localStorage.getItem("theme") || "dark";
+// Crea el contexto con valor inicial nulo, será definido en el provider
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+
+// Props del provider, children es ReactNode (cualquier elemento React)
+interface ThemeProviderProps {
+  children: ReactNode;
+}
+
+export const ThemeProvider = ({ children }: ThemeProviderProps) => {
+  const [theme, setTheme] = useState<string>(() => {
+    return typeof window !== "undefined"
+      ? localStorage.getItem("theme") || "dark"
+      : "dark";
   });
 
   useEffect(() => {
@@ -23,4 +37,11 @@ export const ThemeProvider = ({ children }) => {
   );
 };
 
-export const useTheme = () => useContext(ThemeContext);
+// Hook para consumir el contexto
+export const useTheme = (): ThemeContextType => {
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error("useTheme debe usarse dentro de un ThemeProvider");
+  }
+  return context;
+};

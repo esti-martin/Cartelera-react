@@ -1,23 +1,40 @@
-import { useEffect, useState } from "react";
+import { JSX, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import CardMd from "@components/commons/card/CardMd"; // Ajusta el path si es necesario
+import CardMd, { MovieMd } from "@components/commons/card/CardMd"; // MovieMd type imported from CardMd
 
-const API_KEY = import.meta.env.VITE_API_KEY;
+const API_KEY: string | undefined = import.meta.env.VITE_API_KEY;
 
-function Search() {
+// Local Movie interface removed, using imported one now.
+
+interface ApiResponse {
+  results: MovieMd[];
+}
+
+function Search(): JSX.Element {
   const [searchParams] = useSearchParams();
-  const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [results, setResults] = useState<MovieMd[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const query = searchParams.get("q");
 
   useEffect(() => {
-    if (!query) return;
+    if (!API_KEY) { 
+      console.error("API key no definida en Search.tsx");
+      setLoading(false);
+      return;
+    }
+    if (!query) {
+      setResults([]); // Limpiar resultados si no hay query
+      setLoading(false);
+      return;
+    }
 
     setLoading(true);
 
     fetch(
-      `https://api.themoviedb.org/3/search/movie?query=${query}&language=es-ES`,
+      `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
+        query
+      )}&language=es-ES`,
       {
         headers: {
           accept: "application/json",
@@ -25,12 +42,15 @@ function Search() {
         },
       }
     )
-      .then((res) => res.json())
-      .then((data) => {
+      .then((res) => {
+        if (!res.ok) throw new Error("Error en la respuesta");
+        return res.json();
+      })
+      .then((data: ApiResponse) => {
         setResults(data.results || []);
         setLoading(false);
       })
-      .catch((err) => {
+      .catch((err: Error) => {
         console.error("Error al buscar:", err);
         setLoading(false);
       });

@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { JSX, useEffect, useState } from "react";
 import { FaSun, FaMoon } from "react-icons/fa";
 
-const ThemeToggle = () => {
-  const [theme, setTheme] = useState(() => {
+const ThemeToggle = (): JSX.Element => {
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
     if (typeof window !== "undefined") {
-      return localStorage.getItem("theme") || "light";
+      return (localStorage.getItem("theme") as "light" | "dark") || "light";
     }
     return "light";
   });
@@ -19,7 +19,7 @@ const ThemeToggle = () => {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  const toggleTheme = () => {
+  const toggleTheme = (): void => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
 

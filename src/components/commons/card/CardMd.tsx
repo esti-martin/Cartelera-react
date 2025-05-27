@@ -1,22 +1,23 @@
-import React from "react";
+import { JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "@components/commons/Button/Button";
 
-const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w185";
-
-interface Movie {
+// Puedes ajustar la interfaz según el contenido exacto de tu objeto movie
+export interface MovieMd {
   id: number;
   title: string;
-  poster_path: string | null;
-  vote_average: number;
-  overview: string;
+  poster_path?: string;
+  vote_average?: number;
+  overview?: string;
 }
+
+const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w185";
 
 interface CardMdProps {
-  movie: Movie;
+  movie: MovieMd;
 }
 
-function CardMd({ movie }: CardMdProps) {
+function CardMd({ movie }: CardMdProps): JSX.Element | null {
   const navigate = useNavigate();
 
   if (!movie) return null;
@@ -40,7 +41,9 @@ function CardMd({ movie }: CardMdProps) {
 
       {/* Movie info */}
       <div className="flex flex-col w-full">
-        <h2 className="text-xl font-semibold text-cyan-500 dark:text-cyan-400">{movie.title}</h2>
+        <h2 className="text-xl font-semibold text-cyan-500 dark:text-cyan-400">
+          {movie.title}
+        </h2>
         <p className="text-yellow-500 dark:text-yellow-400 mt-1 font-medium">
           ⭐ {movie.vote_average?.toFixed(1) || "N/A"} / 10
         </p>
@@ -49,11 +52,9 @@ function CardMd({ movie }: CardMdProps) {
         </p>
 
         {/* Botón igual al del Slider */}
-        <Button
-          children="Ver Más"
-          onClick={handleClick}
-          className="mt-4 self-start"
-        />
+        <Button onClick={handleClick} className="mt-4 self-start">
+          Ver Más
+        </Button>
       </div>
     </article>
   );
