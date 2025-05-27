@@ -6,7 +6,6 @@ const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w342"; // For movie posters
 const PROFILE_BASE_URL = "https://image.tmdb.org/t/p/w185"; // For actor profile pictures
 const API_KEY = import.meta.env.VITE_API_KEY_SHORT;
 
-
 // Type definitions
 interface Movie {
   id: number;
@@ -132,7 +131,9 @@ function CardLg({ movieId }: CardLgProps) {
           {/* Movie information section */}
           <div className="md:w-2/3 w-full">
             {/* Movie title */}
-            <h2 className="text-3xl font-bold text-cyan-500 dark:text-cyan-400">{movie.title}</h2>
+            <h2 className="text-3xl font-bold text-cyan-500 dark:text-cyan-400">
+              {movie.title}
+            </h2>
             {/* Release date */}
             <p className="mt-2 text-lg dark:text-white text-black">
               Fecha de lanzamiento: {movie.release_date}
@@ -142,28 +143,32 @@ function CardLg({ movieId }: CardLgProps) {
               ⭐ {movie.vote_average.toFixed(1)} / 10
             </p>
             {/* Movie overview/description */}
-            <p className="mt-3 text-sm dark:text-white text-black">{movie.overview}</p>
+            <p className="mt-3 text-sm dark:text-white text-black">
+              {movie.overview}
+            </p>
 
             {/* Cast section */}
             <div className="mt-6">
               <h3 className="text-xl font-semibold mb-2">Elenco principal</h3>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-6">
                 {/* Map through cast members */}
                 {cast.map((actor) => (
-                  <div key={actor.id} className="w-[70px] text-center text-xs">
+                  <div key={actor.id} className="w-[70px] text-center text-sm">
                     {/* Actor profile image with fallback */}
                     <img
                       src={
                         actor.profile_path
                           ? `${PROFILE_BASE_URL}${actor.profile_path}`
-                          : "https://via.placeholder.com/70x105?text=No+Image"
+                          : "https://upload.wikimedia.org/wikipedia/commons/5/5a/No_image_available_500_x_500.svg"
                       }
                       alt={actor.name}
                       className="rounded"
                     />
                     {/* Actor name and character */}
                     <p className="dark:text-white text-black">{actor.name}</p>
-                    <p className="italic text-gray-500 dark:text-gray-400">{actor.character}</p>
+                    <p className="italic text-gray-500 dark:text-gray-400">
+                      {actor.character}
+                    </p>
                   </div>
                 ))}
               </div>
