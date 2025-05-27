@@ -6,7 +6,7 @@ import type { JSX } from "react";
 function NavbarGuest(): JSX.Element  {
   return (
     <nav className={styles.nav}>
-        <img src="/src/assets/logo.png" alt="logo Hooks & Chill" />
+        <img src="../../../public/logo.png" alt="logo Hooks & Chill" />
         <LoginButton/>
     </nav>
   );

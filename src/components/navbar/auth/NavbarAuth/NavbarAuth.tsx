@@ -5,7 +5,6 @@ import ThemeButton from "@components/commons/theme-button/ThemeButton";
 import { Link } from "react-router-dom";
 import type { JSX } from "react";
 
-
 // No recibe props, así que no necesitas tipado extra
 function NavbarAuth(): JSX.Element {
   return (
@@ -14,7 +13,7 @@ function NavbarAuth(): JSX.Element {
         <a className="bg-transparent" href="/home">
           <img
             className="bg-transparent"
-            src="/src/assets/logo.png"
+            src="../../../public/logo.png"
             alt="logo Hooks & Chill"
           />
         </a>
