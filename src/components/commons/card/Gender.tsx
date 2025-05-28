@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useVisitedPage from "../../../hooks/useVisitedPage";
 import EyeIcon from "../icons/EyeIcon";
+import Heart from "../icons/heart";
 
 const API_KEY = import.meta.env.VITE_API_KEY_SHORT;
 const BASE_URL = "https://api.themoviedb.org/3";
@@ -95,6 +96,9 @@ export default function Gender() {
                     </div>
                   )}
 
+                  <div className="absolute top-2 left-2 z-10">
+                    <Heart onClick={() => {}}/> 
+                  </div> 
                   <img
                     src={
                       movie.poster_path
