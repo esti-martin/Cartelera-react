@@ -149,33 +149,44 @@ function CardLg({ movieId }: CardLgProps) {
 
             {/* Cast section */}
             <div className="mt-6">
-              <h3 className="text-xl font-semibold mb-2">Elenco principal</h3>
+              <h3 className="text-xl font-semibold mb-2 text-cyan-500 dark:text-cyan-400">
+                Elenco principal
+              </h3>
               <div className="flex flex-wrap gap-6">
                 {/* Map through cast members */}
-                {cast.map((actor) => (
-                  <div key={actor.id} className="w-[70px] text-center text-sm">
-                    {/* Actor profile image with fallback */}
-                    <img
-                      src={
-                        actor.profile_path
-                          ? `${PROFILE_BASE_URL}${actor.profile_path}`
-                          : "https://upload.wikimedia.org/wikipedia/commons/5/5a/No_image_available_500_x_500.svg"
-                      }
-                      alt={actor.name}
-                      className="rounded"
-                    />
-                    {/* Actor name and character */}
-                    <p className="dark:text-white text-black">{actor.name}</p>
-                    <p className="italic text-gray-500 dark:text-gray-400">
-                      {actor.character}
-                    </p>
+                {cast.length > 0 ? (
+                  cast.map((actor) => (
+                    <div
+                      key={actor.id}
+                      className="w-[70px] text-center text-sm"
+                    >
+                      {/* Actor profile image with fallback */}
+                      <img
+                        src={
+                          actor.profile_path
+                            ? `${PROFILE_BASE_URL}${actor.profile_path}`
+                            : "https://upload.wikimedia.org/wikipedia/commons/5/5a/No_image_available_500_x_500.svg"
+                        }
+                        alt={actor.name}
+                        className="rounded"
+                      />
+                      {/* Actor name and character */}
+                      <p className="dark:text-white text-black">{actor.name}</p>
+                      <p className="italic text-gray-500 dark:text-gray-400">
+                        {actor.character}
+                      </p>
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-center text-sm text-gray-500 dark:text-gray-400">
+                    No hay actores disponibles
                   </div>
-                ))}
+                )}
               </div>
             </div>
 
             {/* Trailer section - only shown if trailer is available */}
-            {trailerKey && (
+            {trailerKey ? (
               <div className="mt-6">
                 <iframe
                   className="w-full h-60 md:h-96 rounded"
@@ -183,6 +194,10 @@ function CardLg({ movieId }: CardLgProps) {
                   title="Trailer"
                   allowFullScreen
                 />
+              </div>
+            ) : (
+              <div className="text-sm text-gray-500 dark:text-gray-400">
+                No hay trailer disponible
               </div>
             )}
           </div>
