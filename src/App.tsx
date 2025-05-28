@@ -12,6 +12,7 @@ import Footer from "@components/footer/footer";
 import UserProfile from "@pages/auth/userpage/userprofile.js";
 import "@styles/index.css";
 import { AuthProvider } from "@pages/auth/userpage/AuthContext.js";
+import Favorites from "@pages/auth/Favorites.js";
 
 export default function App() {
   const { user: auth0User, isAuthenticated, isLoading } = useAuth0();
@@ -30,9 +31,9 @@ export default function App() {
   return (
     <AuthProvider>
       <div className="app-container">
-      {/* Navbar siempre visible, cambia según autenticación */}
-      {isAuthenticated ? <NavbarAuth /> : <NavbarGuest />}
-      
+        {/* Navbar siempre visible, cambia según autenticación */}
+        {isAuthenticated ? <NavbarAuth /> : <NavbarGuest />}
+
         <div className="app-content">
           <Routes>
             {/* Página pública */}
@@ -69,6 +70,14 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <Search />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/favorites"
+              element={
+                <ProtectedRoute>
+                  <Favorites />
                 </ProtectedRoute>
               }
             />

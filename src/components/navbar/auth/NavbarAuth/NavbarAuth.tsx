@@ -4,6 +4,7 @@ import SearchBox from "../SearchBox/SearchBox";
 import ThemeButton from "@components/commons/theme-button/ThemeButton";
 import { Link } from "react-router-dom";
 import type { JSX } from "react";
+import { AiOutlineHeart } from "react-icons/ai";
 
 // No recibe props, así que no necesitas tipado extra
 function NavbarAuth(): JSX.Element {
@@ -37,10 +38,13 @@ function NavbarAuth(): JSX.Element {
       </section>
       <section className={styles.searchProfile}>
         <SearchBox />
+        <ThemeButton />
+        <Link to="/favorites" className={styles.profileLink}>
+          <AiOutlineHeart className={styles.searchIcon} size={32} />
+        </Link>
         <Link to="/user" className={styles.profileLink}>
           <CgProfile className={styles.searchIcon} size={32} />
         </Link>
-        <ThemeButton />
       </section>
     </nav>
   );

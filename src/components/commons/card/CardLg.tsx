@@ -1,5 +1,6 @@
 // Import necessary React hooks and components
 import React, { useEffect, useState } from "react";
+import { useMyListStore } from "@store/useMyListStore";
 
 // Base URLs for TMDB image API
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"; // Higher quality for backdrop
@@ -54,6 +55,10 @@ function CardLg({ movieId }: CardLgProps) {
   const [error, setError] = useState<string | null>(null);
   const [showTrailer, setShowTrailer] = useState(false);
 
+  // Zustand store for My List functionality
+  const { addMovie, removeMovie, isInList } = useMyListStore();
+  const movieIsInList = movie ? isInList(movie.id) : false;
+
   // Effect hook to fetch movie data when component mounts or movieId changes
   useEffect(() => {
     if (!movieId) return;
@@ -107,6 +112,17 @@ function CardLg({ movieId }: CardLgProps) {
         setError("No se pudo cargar la película.");
       });
   }, [movieId]);
+
+  // Handle adding/removing movie from list
+  const handleMyListClick = () => {
+    if (!movie) return;
+
+    if (movieIsInList) {
+      removeMovie(movie.id);
+    } else {
+      addMovie(movie);
+    }
+  };
 
   // Show error message if there's an error
   if (error)
@@ -215,21 +231,47 @@ function CardLg({ movieId }: CardLgProps) {
                   </button>
                 )}
 
-                <button className="bg-gray-600/80 text-white px-8 py-3 rounded font-semibold text-lg hover:bg-gray-600 transition-colors flex items-center justify-center gap-2">
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                    />
-                  </svg>
-                  Mi Lista
+                <button
+                  onClick={handleMyListClick}
+                  className={`px-8 py-3 rounded font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-2 ${
+                    movieIsInList
+                      ? "bg-green-600/80 text-white hover:bg-green-600"
+                      : "bg-gray-600/80 text-white hover:bg-gray-600"
+                  }`}
+                >
+                  {movieIsInList ? (
+                    <>
+                      <svg
+                        className="w-6 h-6"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      En Mi Lista
+                    </>
+                  ) : (
+                    <>
+                      <svg
+                        className="w-6 h-6"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                        />
+                      </svg>
+                      Mi Lista
+                    </>
+                  )}
                 </button>
               </div>
             </div>
