@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from "react";
 
 // Base URLs for TMDB image API
-const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w342"; // For movie posters
+const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"; // Higher quality for backdrop
+const BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/original"; // For full backdrop
 const PROFILE_BASE_URL = "https://image.tmdb.org/t/p/w185"; // For actor profile pictures
 const API_KEY = import.meta.env.VITE_API_KEY_SHORT;
 
@@ -11,9 +12,12 @@ interface Movie {
   id: number;
   title: string;
   poster_path: string;
+  backdrop_path: string;
   release_date: string;
   vote_average: number;
   overview: string;
+  runtime: number;
+  genres: Array<{ id: number; name: string }>;
 }
 
 interface Video {
@@ -41,25 +45,23 @@ interface CardLgProps {
   movieId: number | string;
 }
 
-// CardLg component that displays detailed movie information
+// CardLg component that displays detailed movie information in Netflix style
 function CardLg({ movieId }: CardLgProps) {
   // State management for movie data, trailer, cast, and error handling
-  const [movie, setMovie] = useState<Movie | null>(null); // Stores the movie details
-  const [trailerKey, setTrailerKey] = useState<string | null>(null); // Stores the YouTube trailer key
-  const [cast, setCast] = useState<CastMember[]>([]); // Stores the movie cast information
-  const [error, setError] = useState<string | null>(null); // Stores any error messages
+  const [movie, setMovie] = useState<Movie | null>(null);
+  const [trailerKey, setTrailerKey] = useState<string | null>(null);
+  const [cast, setCast] = useState<CastMember[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [showTrailer, setShowTrailer] = useState(false);
 
   // Effect hook to fetch movie data when component mounts or movieId changes
   useEffect(() => {
-    // Return early if no movieId is provided
     if (!movieId) return;
 
-    // Configure fetch options
     const options: RequestInit = {
       method: "GET",
       headers: {
         accept: "application/json",
-        // Authorization header commented out as we're using api_key in URL
       },
     };
 
@@ -73,7 +75,7 @@ function CardLg({ movieId }: CardLgProps) {
         return res.json();
       })
       .then((data: Movie) => {
-        setMovie(data); // Store movie data in state
+        setMovie(data);
 
         // Fetch movie trailer
         fetch(
@@ -82,13 +84,12 @@ function CardLg({ movieId }: CardLgProps) {
         )
           .then((res) => res.json())
           .then((videoData: VideoResponse) => {
-            // Find the first YouTube trailer in the results
             const trailer = videoData.results.find(
               (v) => v.type === "Trailer" && v.site === "YouTube"
             );
             if (trailer) setTrailerKey(trailer.key);
           })
-          .catch(() => {}); // Silently handle trailer fetch errors
+          .catch(() => {});
 
         // Fetch movie cast
         fetch(
@@ -97,112 +98,260 @@ function CardLg({ movieId }: CardLgProps) {
         )
           .then((res) => res.json())
           .then((creditsData: CreditsResponse) => {
-            // Store first 12 cast members
-            setCast(creditsData.cast.slice(0, 12));
+            setCast(creditsData.cast.slice(0, 8));
           })
-          .catch(() => {}); // Silently handle cast fetch errors
+          .catch(() => {});
       })
       .catch((err: Error) => {
         console.error(err);
         setError("No se pudo cargar la película.");
       });
-  }, [movieId]); // Re-run effect when movieId changes
+  }, [movieId]);
 
   // Show error message if there's an error
-  if (error) return <p className="text-red-500 p-4">{error}</p>;
+  if (error)
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <p className="text-red-500 text-xl">{error}</p>
+      </div>
+    );
+
   // Show loading message while data is being fetched
-  if (!movie) return <p className="p-4">Cargando...</p>;
+  if (!movie)
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-white text-xl">Cargando...</div>
+      </div>
+    );
 
-  // Main component render
+  // Format runtime
+  const formatRuntime = (minutes: number) => {
+    const hours = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    return `${hours}h ${mins}m`;
+  };
+
+  // Main component render - Netflix style
   return (
-    <div className="max-w-[1200px] mx-auto px-4 bg-[var(--background-color)] text-[var(--text-color)]">
-      <div className="flex flex-col p-4 w-full justify-center space-y-4">
-        {/* Movie details container */}
-        <article className="flex flex-col md:flex-row gap-6 items-start border-2 border-[var(--tertiary-color)] dark:border-gray-700 rounded-lg shadow-md p-6 bg-[var(--background-color)] dark:bg-slate-800">
-          {/* Movie poster section */}
-          <div className="md:w-1/3 w-full flex justify-center">
-            <img
-              src={`${IMAGE_BASE_URL}${movie.poster_path}`}
-              alt={movie.title}
-              className="w-full max-w-[200px] rounded shadow-lg"
-            />
-          </div>
+    <div className="w-full min-h-screen bg-black text-white relative overflow-hidden">
+      {/* Background Hero Section */}
+      <div className="relative h-screen">
+        {/* Background Image with Gradient Overlay */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: movie.backdrop_path
+              ? `url(${BACKDROP_BASE_URL}${movie.backdrop_path})`
+              : `url(${IMAGE_BASE_URL}${movie.poster_path})`,
+          }}
+        >
+          {/* Dark gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+        </div>
 
-          {/* Movie information section */}
-          <div className="md:w-2/3 w-full">
-            {/* Movie title */}
-            <h2 className="text-3xl font-bold text-cyan-500 dark:text-cyan-400">
-              {movie.title}
-            </h2>
-            {/* Release date */}
-            <p className="mt-2 text-lg dark:text-white text-black">
-              Fecha de lanzamiento: {movie.release_date}
-            </p>
-            {/* Rating */}
-            <p className="text-yellow-500 dark:text-yellow-400 mt-1 font-semibold">
-              ⭐ {movie.vote_average.toFixed(1)} / 10
-            </p>
-            {/* Movie overview/description */}
-            <p className="mt-3 text-sm dark:text-white text-black">
-              {movie.overview}
-            </p>
+        {/* Content Overlay */}
+        <div className="relative z-10 h-full flex items-center">
+          <div className="container mx-auto px-6 lg:px-12">
+            <div className="max-w-2xl">
+              {/* Movie Title */}
+              <h1 className="text-5xl lg:text-7xl font-bold mb-4 leading-tight">
+                {movie.title}
+              </h1>
 
-            {/* Cast section */}
-            <div className="mt-6">
-              <h3 className="text-xl font-semibold mb-2 text-cyan-500 dark:text-cyan-400">
-                Elenco principal
-              </h3>
-              <div className="flex flex-wrap gap-6">
-                {/* Map through cast members */}
-                {cast.length > 0 ? (
-                  cast.map((actor) => (
-                    <div
-                      key={actor.id}
-                      className="w-[70px] text-center text-sm"
-                    >
-                      {/* Actor profile image with fallback */}
-                      <img
-                        src={
-                          actor.profile_path
-                            ? `${PROFILE_BASE_URL}${actor.profile_path}`
-                            : "https://upload.wikimedia.org/wikipedia/commons/5/5a/No_image_available_500_x_500.svg"
-                        }
-                        alt={actor.name}
-                        className="rounded"
-                      />
-                      {/* Actor name and character */}
-                      <p className="dark:text-white text-black">{actor.name}</p>
-                      <p className="italic text-gray-500 dark:text-gray-400">
-                        {actor.character}
-                      </p>
-                    </div>
-                  ))
-                ) : (
-                  <div className="text-center text-sm text-gray-500 dark:text-gray-400">
-                    No hay actores disponibles
-                  </div>
+              {/* Movie Meta Info */}
+              <div className="flex items-center space-x-4 mb-6 text-lg">
+                <span className="bg-zinc-800 px-3 py-1 rounded text-sm font-semibold">
+                  ⭐ {movie.vote_average.toFixed(1)}
+                </span>
+                <span className="text-gray-300">
+                  {new Date(movie.release_date).getFullYear()}
+                </span>
+                {movie.runtime && (
+                  <span className="text-gray-300">
+                    {formatRuntime(movie.runtime)}
+                  </span>
                 )}
               </div>
-            </div>
 
-            {/* Trailer section - only shown if trailer is available */}
-            {trailerKey ? (
-              <div className="mt-6">
+              {/* Genres */}
+              {movie.genres && movie.genres.length > 0 && (
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {movie.genres.map((genre) => (
+                    <span
+                      key={genre.id}
+                      className="bg-[var(--secondary-color)] px-3 py-1 rounded-full text-sm"
+                    >
+                      {genre.name}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {/* Movie Overview */}
+              <p className="text-lg lg:text-xl leading-relaxed mb-8 max-w-xl text-gray-200">
+                {movie.overview}
+              </p>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4">
+                {trailerKey && (
+                  <button
+                    onClick={() => setShowTrailer(!showTrailer)}
+                    className="bg-white text-black px-8 py-3 rounded font-semibold text-lg hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
+                  >
+                    <svg
+                      className="w-6 h-6"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    {showTrailer ? "Ocultar Tráiler" : "Ver Tráiler"}
+                  </button>
+                )}
+
+                <button className="bg-gray-600/80 text-white px-8 py-3 rounded font-semibold text-lg hover:bg-gray-600 transition-colors flex items-center justify-center gap-2">
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                    />
+                  </svg>
+                  Mi Lista
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Trailer Overlay - Slides from right */}
+      <div
+        className={`fixed inset-0 z-50 bg-black transition-transform duration-700 ease-in-out transform ${
+          showTrailer ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        {/* Close Button */}
+        <button
+          onClick={() => setShowTrailer(false)}
+          className="absolute top-6 right-6 z-60 text-white hover:text-gray-300 transition-colors"
+        >
+          <svg
+            className="w-8 h-8"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+
+        {/* Back Button */}
+        <button
+          onClick={() => setShowTrailer(false)}
+          className="absolute top-6 left-6 z-60 text-white hover:text-gray-300 transition-colors flex items-center gap-2"
+        >
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          <span className="text-lg font-medium">Volver</span>
+        </button>
+
+        {/* Trailer Content */}
+        <div className="h-full flex flex-col items-center justify-center px-6">
+          <div className="w-full max-w-6xl">
+            <h2 className="text-4xl lg:text-5xl font-bold text-center mb-8 text-white">
+              {movie?.title} - Tráiler
+            </h2>
+
+            {/* Video Container */}
+            <div className="relative aspect-video w-full rounded-lg overflow-hidden shadow-2xl">
+              {showTrailer && trailerKey && (
                 <iframe
-                  className="w-full h-60 md:h-96 rounded"
-                  src={`https://www.youtube.com/embed/${trailerKey}`}
+                  className="w-full h-full"
+                  src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&rel=0&modestbranding=1`}
                   title="Trailer"
                   allowFullScreen
+                  allow="autoplay; encrypted-media"
                 />
+              )}
+            </div>
+
+            {/* Movie Info Below Video */}
+            <div className="mt-8 text-center">
+              <div className="flex items-center justify-center space-x-4 text-lg text-gray-300">
+                <span className="bg-gray-800/60 px-3 py-1 rounded">
+                  ⭐ {movie?.vote_average.toFixed(1)}
+                </span>
+                <span>{new Date(movie?.release_date || "").getFullYear()}</span>
+                {movie?.runtime && <span>{formatRuntime(movie.runtime)}</span>}
               </div>
-            ) : (
-              <div className="text-sm text-gray-500 dark:text-gray-400">
-                No hay trailer disponible
-              </div>
-            )}
+            </div>
           </div>
-        </article>
+        </div>
       </div>
+
+      {/* Cast Section */}
+      {cast.length > 0 && (
+        <div className="bg-black py-12">
+          <div className="container mx-auto px-6">
+            <h2 className="text-3xl font-bold mb-8">Reparto</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-6">
+              {cast.map((actor) => (
+                <div key={actor.id} className="text-center group">
+                  <div className="relative overflow-hidden rounded-lg mb-3 aspect-[3/4]">
+                    <img
+                      src={
+                        actor.profile_path
+                          ? `${PROFILE_BASE_URL}${actor.profile_path}`
+                          : "https://upload.wikimedia.org/wikipedia/commons/5/5a/No_image_available_500_x_500.svg"
+                      }
+                      alt={actor.name}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    />
+                  </div>
+                  <h3 className="text-sm font-semibold text-white mb-1 truncate">
+                    {actor.name}
+                  </h3>
+                  <p className="text-center text-xs text-gray-400 truncate">
+                    {actor.character}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Bottom Spacer */}
+      <div className="h-20 bg-black"></div>
     </div>
   );
 }
