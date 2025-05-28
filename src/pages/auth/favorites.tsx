@@ -15,7 +15,7 @@ export default function Favoritos() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const stored = localStorage.getItem("favoriteMoviesData");
+    const stored = localStorage.getItem("favoriteMovies");
     if (stored) {
       setFavorites(JSON.parse(stored));
     }
@@ -24,7 +24,7 @@ export default function Favoritos() {
   const removeFavorite = (id: number) => {
     const updatedFavorites = favorites.filter((movie) => movie.id !== id);
     setFavorites(updatedFavorites);
-    localStorage.setItem("favoriteMoviesData", JSON.stringify(updatedFavorites));
+    localStorage.setItem("favoriteMovies", JSON.stringify(updatedFavorites));
   };
 
   if (favorites.length === 0) {

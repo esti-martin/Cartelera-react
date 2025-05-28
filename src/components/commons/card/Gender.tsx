@@ -54,10 +54,15 @@ export default function Gender() {
   }, [favorites, favoritesLoaded]);
 
   // Alternar favorito (añadir o quitar)
-  const toggleFavorite = (movieId: number) => {
-    setFavorites((prev) =>
-      prev.includes(movieId) ? prev.filter((id) => id !== movieId) : [...prev, movieId]
-    );
+  const toggleFavorite = (movie: Movie) => {
+    setFavorites((prev) => {
+      const exists = prev.find((fav) => fav.id === movie.id);
+      if (exists) {
+        return prev.filter((fav) => fav.id !== movie.id);
+      } else {
+        return [...prev, movie];
+      }
+    });
   };
 
   // Cargar películas por género
