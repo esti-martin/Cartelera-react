@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import useVisitedPage from "../../../hooks/useVisitedPage";
+import EyeIcon from "../icons/EyeIcon";
 
 const API_KEY = import.meta.env.VITE_API_KEY_SHORT;
 const BASE_URL = "https://api.themoviedb.org/3";
@@ -23,6 +25,13 @@ export default function Gender() {
   const [genreData, setGenreData] = useState<GenreData>({});
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
+  /*
+  const [ visited ] = useState(() => {
+    const stored = localStorage.getItem("visitedPages");
+    return stored ? JSON.parse(stored) : [];
+  });*/
+  const { visited } = useVisitedPage();
+
 
   useEffect(() => {
     const fetchGenresAndMovies = async () => {
@@ -78,6 +87,14 @@ export default function Gender() {
                   className="w-[180px] bg-slate-200 dark:bg-indigo-900 rounded-lg shadow-lg transform transition-transform duration-300 cursor-pointer hover:scale-105"
                   onClick={() => navigate(`/movie/${movie.id}`)}
                 >
+
+                  {/* Icono solo si la película ha sido visitada */}
+                  {visited.includes(movie.id) && (
+                    <div className="absolute top-2 right-2 z-10">
+                      <EyeIcon id={movie.id} onClick={() => {}} />
+                    </div>
+                  )}
+
                   <img
                     src={
                       movie.poster_path
