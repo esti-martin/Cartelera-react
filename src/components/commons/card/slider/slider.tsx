@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "@components/commons/card/slider/slider.css";
 import { useNavigate } from "react-router-dom";
 import Button from "../../Button/Button";
-
+import Heart from "@components/commons/icons/heart";
 
 type Movie = {
   id: number;
@@ -17,8 +17,36 @@ type Movie = {
 function Slider() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [current, setCurrent] = useState<number>(0);
+  const [favorites, setFavorites] = useState<number[]>([]);
+  const [favoritesLoaded, setFavoritesLoaded] = useState(false);
   const API_KEY: string | undefined = import.meta.env.VITE_API_KEY;
   const navigate = useNavigate();
+
+  // Cargar favoritos de localStorage
+  useEffect(() => {
+    const stored = localStorage.getItem("favoriteMovies");
+    if (stored) {
+      try {
+        setFavorites(JSON.parse(stored));
+      } catch {
+        setFavorites([]);
+      }
+    }
+    setFavoritesLoaded(true);
+  }, []);
+
+  // Guardar favoritos en localStorage cuando cambian
+  useEffect(() => {
+    if (favoritesLoaded) {
+      localStorage.setItem("favoriteMovies", JSON.stringify(favorites));
+    }
+  }, [favorites, favoritesLoaded]);
+
+  const toggleFavorite = (movieId: number) => {
+    setFavorites((prev) =>
+      prev.includes(movieId) ? prev.filter((id) => id !== movieId) : [...prev, movieId]
+    );
+  };
 
   useEffect(() => {
     if (!API_KEY) {
@@ -56,10 +84,22 @@ function Slider() {
   return (
     <div className="slider-container">
       <div
-        className="slider-background cursor-pointer"
+        className="slider-background cursor-pointer relative"
         style={{ backgroundImage: `url(${imageUrl})` }}
         onClick={() => navigate(`/movie/${movie.id}`)}
       >
+        {/* Corazón favorito */}
+        <div
+          className="absolute top-4 right-4 z-20 cursor-pointer"
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleFavorite(movie.id);
+          }}
+          title={favorites.includes(movie.id) ? "Quitar de favoritos" : "Añadir a favoritos"}
+        >
+          <Heart filled={favorites.includes(movie.id)} onClick={() => {}} />
+        </div>
+
         <div className="slider-content">
           <h4 className="text-2xl font-bold bg-transparent">{movie.title}</h4>
           <p>

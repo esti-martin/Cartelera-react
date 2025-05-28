@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useVisitedPage from "../../../hooks/useVisitedPage";
 import EyeIcon from "../icons/EyeIcon";
+import Heart from "../icons/heart";
 
 const API_KEY = import.meta.env.VITE_API_KEY_SHORT;
 const BASE_URL = "https://api.themoviedb.org/3";
@@ -24,15 +25,42 @@ interface GenreData {
 export default function Gender() {
   const [genreData, setGenreData] = useState<GenreData>({});
   const [loading, setLoading] = useState<boolean>(true);
+
+  // Estado para favoritos y para saber si ya cargaron
+  const [favorites, setFavorites] = useState<number[]>([]);
+  const [favoritesLoaded, setFavoritesLoaded] = useState(false);
+
   const navigate = useNavigate();
-  /*
-  const [ visited ] = useState(() => {
-    const stored = localStorage.getItem("visitedPages");
-    return stored ? JSON.parse(stored) : [];
-  });*/
   const { visited } = useVisitedPage();
 
+  // Cargar favoritos desde localStorage al montar
+  useEffect(() => {
+    const stored = localStorage.getItem("favoriteMovies");
+    if (stored) {
+      try {
+        setFavorites(JSON.parse(stored));
+      } catch {
+        setFavorites([]);
+      }
+    }
+    setFavoritesLoaded(true);
+  }, []);
 
+  // Guardar favoritos en localStorage cuando cambian
+  useEffect(() => {
+    if (favoritesLoaded) {
+      localStorage.setItem("favoriteMovies", JSON.stringify(favorites));
+    }
+  }, [favorites, favoritesLoaded]);
+
+  // Alternar favorito (añadir o quitar)
+  const toggleFavorite = (movieId: number) => {
+    setFavorites((prev) =>
+      prev.includes(movieId) ? prev.filter((id) => id !== movieId) : [...prev, movieId]
+    );
+  };
+
+  // Cargar películas por género
   useEffect(() => {
     const fetchGenresAndMovies = async () => {
       try {
@@ -63,10 +91,13 @@ export default function Gender() {
     fetchGenresAndMovies();
   }, []);
 
-  if (loading)
+  if (loading || !favoritesLoaded) {
     return (
-      <div className="text-center mt-10 text-[var(--text-color)]">Cargando películas...</div>
+      <div className="text-center mt-10 text-[var(--text-color)]">
+        Cargando películas...
+      </div>
     );
+  }
 
   return (
     <>
@@ -80,21 +111,32 @@ export default function Gender() {
               {genreName}
             </h2>
 
-            <div className="flex flex-wrap justify-center gap-5 ">
+            <div className="flex flex-wrap justify-center gap-5">
               {movies.map((movie) => (
                 <div
                   key={movie.id}
-                  className="w-[180px] bg-slate-200 dark:bg-indigo-900 rounded-lg shadow-lg transform transition-transform duration-300 cursor-pointer hover:scale-105"
+                  className="relative w-[180px] bg-slate-200 dark:bg-indigo-900 rounded-lg shadow-lg transform transition-transform duration-300 cursor-pointer hover:scale-105"
                   onClick={() => navigate(`/movie/${movie.id}`)}
                 >
-
-                  {/* Icono solo si la película ha sido visitada */}
+                  {/* Icono del ojo si ha sido visitada */}
                   {visited.includes(movie.id) && (
                     <div className="absolute top-2 right-2 z-10">
                       <EyeIcon id={movie.id} onClick={() => {}} />
                     </div>
                   )}
 
+                  {/* Icono de corazón para favoritos */}
+                  <div className="absolute top-2 left-2 z-10">
+                    <Heart
+                      filled={favorites.includes(movie.id)}
+                      onClick={(e) => {
+                        e.stopPropagation(); // Evita navegación al hacer clic
+                        toggleFavorite(movie.id);
+                      }}
+                    />
+                  </div>
+
+                  {/* Imagen de la película */}
                   <img
                     src={
                       movie.poster_path
@@ -104,6 +146,8 @@ export default function Gender() {
                     alt={movie.title}
                     className="w-full h-[270px] object-cover rounded-t-lg bg-gray-300 dark:bg-black"
                   />
+
+                  {/* Título */}
                   <div className="p-2 text-center bg-cyan-500 dark:bg-cyan-600 rounded-b-lg h-[50px] flex items-center justify-center">
                     <p className="text-sm text-white font-bold line-clamp-2 text-center">
                       {movie.title}
