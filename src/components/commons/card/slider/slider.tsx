@@ -3,7 +3,6 @@ import "@components/commons/card/slider/slider.css";
 import { useNavigate } from "react-router-dom";
 import Button from "../../Button/Button";
 
-
 type Movie = {
   id: number;
   title: string;
@@ -26,7 +25,8 @@ function Slider() {
       return;
     }
 
-    const url = "https://api.themoviedb.org/3/trending/movie/day?language=es-ES";
+    const url =
+      "https://api.themoviedb.org/3/trending/movie/day?language=es-ES";
 
     fetch(url, {
       method: "GET",
@@ -54,14 +54,18 @@ function Slider() {
   }`;
 
   return (
-    <div className="slider-container">
+    <div className="slider-container relative">
       <div
-        className="slider-background cursor-pointer"
+        className="slider-background cursor-pointer relative"
         style={{ backgroundImage: `url(${imageUrl})` }}
         onClick={() => navigate(`/movie/${movie.id}`)}
       >
-        <div className="slider-content">
-          <h4 className="text-2xl font-bold bg-transparent">{movie.title}</h4>
+        {/* Overlay oscurecido */}
+        <div className="absolute inset-0 bg-black/60 z-10"></div>
+
+        {/* Contenido del slider */}
+        <div className="slider-content relative z-20 text-white">
+          <h4 className="text-2xl font-bold">{movie.title}</h4>
           <p>
             <strong>Año:</strong> {new Date(movie.release_date).getFullYear()}
           </p>
@@ -77,8 +81,9 @@ function Slider() {
           </Button>
         </div>
 
+        {/* Botones de navegación */}
         <button
-          className="nav-button left"
+          className="nav-button left z-20"
           onClick={(e) => {
             e.stopPropagation();
             setCurrent((current - 1 + movies.length) % movies.length);
@@ -88,7 +93,7 @@ function Slider() {
         </button>
 
         <button
-          className="nav-button right"
+          className="nav-button right z-20"
           onClick={(e) => {
             e.stopPropagation();
             setCurrent((current + 1) % movies.length);
@@ -97,7 +102,8 @@ function Slider() {
           ▶
         </button>
 
-        <div className="dots">
+        {/* Puntos indicadores */}
+        <div className="dots absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
           {movies.map((_, i) => (
             <span
               key={i}

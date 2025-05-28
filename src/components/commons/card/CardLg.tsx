@@ -135,8 +135,8 @@ function CardLg({ movieId }: CardLgProps) {
   // Show loading message while data is being fetched
   if (!movie)
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-white text-xl">Cargando...</div>
+      <div className="min-h-screen w-full bg-black flex items-center justify-center">
+        <div className="text-white text-xxl">Cargando...</div>
       </div>
     );
 

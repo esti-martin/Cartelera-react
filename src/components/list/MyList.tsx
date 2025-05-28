@@ -176,7 +176,7 @@ function MyList({ onMovieSelect }: MyListProps) {
                 {/* Genres */}
                 {movie.genres && movie.genres.length > 0 && (
                   <div className="flex flex-wrap gap-1 mb-3">
-                    {movie.genres.slice(0, 2).map((genre) => (
+                    {movie.genres.slice(0, 5).map((genre) => (
                       <span
                         key={genre.id}
                         className="bg-gray-700 text-xs px-2 py-1 rounded-full"
