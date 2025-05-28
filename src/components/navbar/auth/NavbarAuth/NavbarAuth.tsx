@@ -1,11 +1,11 @@
 import styles from "./NavbarAuth.module.css";
 import { CgProfile } from "react-icons/cg";
+import { FaHeart } from "react-icons/fa"; // <- Añadido
 import SearchBox from "../SearchBox/SearchBox";
 import ThemeButton from "@components/commons/theme-button/ThemeButton";
 import { Link } from "react-router-dom";
 import type { JSX } from "react";
 
-// No recibe props, así que no necesitas tipado extra
 function NavbarAuth(): JSX.Element {
   return (
     <nav className={styles.nav}>
@@ -35,11 +35,20 @@ function NavbarAuth(): JSX.Element {
           </li>
         </ul>
       </section>
+
       <section className={styles.searchProfile}>
         <SearchBox />
+
+        {/* Enlace a favoritos con icono de corazón */}
+        <Link to="/favoritos" className={styles.profileLink}>
+          <FaHeart className={styles.searchIcon} color="red" size={28} />
+        </Link>
+
+        {/* Enlace al perfil de usuario */}
         <Link to="/user" className={styles.profileLink}>
           <CgProfile className={styles.searchIcon} size={32} />
         </Link>
+
         <ThemeButton />
       </section>
     </nav>
