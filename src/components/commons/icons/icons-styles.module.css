@@ -9,3 +9,11 @@
     border-radius: 4px;
     background-color: rgba(0, 123, 255, 0.5);
 }
+
+.iconHeart {
+    color: gray; /* color por defecto */
+  }
+  
+  .iconHeart.filled {
+    color: red; /* color cuando está marcado */
+  }
