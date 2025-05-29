@@ -54,13 +54,12 @@ export default function Gender() {
   }, [favorites, favoritesLoaded]);
 
   // Alternar favorito (añadir o quitar)
-  const toggleFavorite = (movie: Movie) => {
+  const toggleFavorite = (movieId: number) => {
     setFavorites((prev) => {
-      const exists = prev.find((fav) => fav.id === movie.id);
-      if (exists) {
-        return prev.filter((fav) => fav.id !== movie.id);
+      if (prev.includes(movieId)) {
+        return prev.filter((id) => id !== movieId);
       } else {
-        return [...prev, movie];
+        return [...prev, movieId];
       }
     });
   };

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MdDelete } from "react-icons/md"; // ícono de eliminar
+import { MdDelete } from "react-icons/md";
 
+const API_KEY = import.meta.env.VITE_API_KEY_SHORT;
 const IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
 
 interface Movie {
@@ -11,23 +12,46 @@ interface Movie {
 }
 
 export default function Favoritos() {
-  const [favorites, setFavorites] = useState<Movie[]>([]);
+  const [favoriteIds, setFavoriteIds] = useState<number[]>([]);
+  const [favoriteMovies, setFavoriteMovies] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const stored = localStorage.getItem("favoriteMovies");
     if (stored) {
-      setFavorites(JSON.parse(stored));
+      const ids: number[] = JSON.parse(stored);
+      setFavoriteIds(ids);
+
+      // Cargar información completa de cada película
+      Promise.all(
+        ids.map((id) =>
+          fetch(
+            `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=es-ES`
+          ).then((res) => res.json())
+        )
+      ).then((movies: Movie[]) => {
+        setFavoriteMovies(movies);
+        setLoading(false);
+      });
+    } else {
+      setLoading(false);
     }
   }, []);
 
   const removeFavorite = (id: number) => {
-    const updatedFavorites = favorites.filter((movie) => movie.id !== id);
-    setFavorites(updatedFavorites);
-    localStorage.setItem("favoriteMovies", JSON.stringify(updatedFavorites));
+    const updatedIds = favoriteIds.filter((movieId) => movieId !== id);
+    setFavoriteIds(updatedIds);
+    setFavoriteMovies((prev) => prev.filter((movie) => movie.id !== id));
+    localStorage.setItem("favoriteMovies", JSON.stringify(updatedIds));
   };
 
-  if (favorites.length === 0) {
+  if (loading) {
+    return <p className="text-center text-white mt-10">Cargando favoritos...</p>;
+  }
+
+  if (favoriteMovies.length === 0) {
     return <p className="text-center text-white mt-10">No tienes favoritos aún.</p>;
   }
 
@@ -35,7 +59,7 @@ export default function Favoritos() {
     <div className="p-4 text-center text-white">
       <h1 className="text-3xl mb-6 font-bold">Tus Favoritos</h1>
       <div className="flex flex-wrap justify-center gap-5">
-        {favorites.map((movie) => (
+        {favoriteMovies.map((movie) => (
           <div
             key={movie.id}
             className="relative w-[180px] bg-slate-200 dark:bg-indigo-900 rounded-lg shadow-lg"
