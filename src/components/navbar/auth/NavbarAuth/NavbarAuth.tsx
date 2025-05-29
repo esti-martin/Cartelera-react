@@ -11,7 +11,7 @@ import type { JSX } from "react";
 function NavbarAuth(): JSX.Element {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  //Efecto para bloquear el scroll cuando el menú está abierto
+  // Efecto para bloquear el scroll cuando el menú está abierto
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -19,8 +19,8 @@ function NavbarAuth(): JSX.Element {
       document.body.style.overflow = "";
     }
 
-  return () =>  {
-    document.body.style.overflow = "";
+    return () => {
+      document.body.style.overflow = "";
     };
   }, [isMenuOpen]);
 
@@ -70,7 +70,6 @@ function NavbarAuth(): JSX.Element {
       </section>
 
       {/* Menú hamburguesa y versión móvil */}
-
       {isMenuOpen ? (
         <HiX
           className={styles.menuIcon}
@@ -78,11 +77,11 @@ function NavbarAuth(): JSX.Element {
           onClick={() => setIsMenuOpen(false)}
         />
       ) : (
-      <HiMenu
-        className={styles.menuIcon}
-        size={32}
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-      />
+        <HiMenu
+          className={styles.menuIcon}
+          size={32}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        />
       )}
 
       {isMenuOpen && (
@@ -92,28 +91,32 @@ function NavbarAuth(): JSX.Element {
               <a className="dark:text-white text-black" href="/home#Acción">
                 Acción
               </a>
-          </li>
-          <li className="bg-transparent">
-            <a className="dark:text-white text-black" href="/home#Comedia">
-              Comedia
-            </a>
-          </li>
-          <li className="bg-transparent">
-            <a className="dark:text-white text-black" href="/home#Drama">
-              Drama
-            </a>
-          </li>
+            </li>
+            <li className="bg-transparent">
+              <a className="dark:text-white text-black" href="/home#Comedia">
+                Comedia
+              </a>
+            </li>
+            <li className="bg-transparent">
+              <a className="dark:text-white text-black" href="/home#Drama">
+                Drama
+              </a>
+            </li>
           </ul>
           <div className={styles.box}>
             <SearchBox />
           </div>
           <div className={styles.mobileButtons}>
-            <Link to="/user"><CgProfile size={32} /></Link>
+            <Link to="/favoritos">
+              <FaHeart color="red" size={28} />
+            </Link>
+            <Link to="/user">
+              <CgProfile size={32} />
+            </Link>
             <ThemeButton />
           </div>
         </div>
       )}
-
     </nav>
   );
 }
