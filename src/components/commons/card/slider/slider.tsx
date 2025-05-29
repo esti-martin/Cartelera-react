@@ -42,13 +42,13 @@ function Slider() {
     }
   }, [favorites, favoritesLoaded]);
 
-  const toggleFavorite = (movie: Movie) => {
+  const toggleFavorite = (movieId: number) => {
     setFavorites((prev) => {
-      const exists = prev.find((fav) => fav.id === movie.id);
+      const exists = prev.includes(movieId);
       if (exists) {
-        return prev.filter((fav) => fav.id !== movie.id);
+        return prev.filter((id) => id !== movieId);
       } else {
-        return [...prev, movie];
+        return [...prev, movieId];
       }
     });
   };
