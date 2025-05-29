@@ -56,22 +56,20 @@ function NavbarAuth(): JSX.Element {
 
       <section className={styles.searchProfile}>
         <SearchBox />
-        <ThemeButton />
-        <Link to="/favorites" className={styles.profileLink}>
+     
+        {/* <Link to="/favorites" className={styles.profileLink}>
           <AiOutlineHeart className={styles.searchIcon} size={32} />
-        </Link>
+        </Link> */}
 
         {/* Enlace a favoritos con icono de corazón */}
         <Link to="/favoritos" className={styles.profileLink}>
           <FaHeart className={styles.searchIcon} color="red" size={28} />
         </Link>
-
+        <ThemeButton />
         {/* Enlace al perfil de usuario */}
         <Link to="/user" className={styles.profileLink}>
           <CgProfile className={styles.searchIcon} size={32} />
         </Link>
-
-        <ThemeButton />
       </section>
 
       {/* Menú hamburguesa y versión móvil */}
@@ -93,26 +91,32 @@ function NavbarAuth(): JSX.Element {
         <div className={styles.mobileMenu}>
           <ul>
             <li className="bg-transparent">
-              <a className="dark:text-white text-black" 
-              href="/home#Acción"
-              onClick={() => setIsMenuOpen(false)}>
+              <a
+                className="dark:text-white text-black"
+                href="/home#Acción"
+                onClick={() => setIsMenuOpen(false)}
+              >
                 Acción
               </a>
-          </li>
-          <li className="bg-transparent">
-            <a className="dark:text-white text-black" 
-            href="/home#Comedia"
-            onClick={() => setIsMenuOpen(false)}>
-              Comedia
-            </a>
-          </li>
-          <li className="bg-transparent">
-            <a className="dark:text-white text-black" 
-            href="/home#Drama"
-            onClick={() => setIsMenuOpen(false)}>
-              Drama
-            </a>
-          </li>
+            </li>
+            <li className="bg-transparent">
+              <a
+                className="dark:text-white text-black"
+                href="/home#Comedia"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Comedia
+              </a>
+            </li>
+            <li className="bg-transparent">
+              <a
+                className="dark:text-white text-black"
+                href="/home#Drama"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Drama
+              </a>
+            </li>
           </ul>
           <div className={styles.box}>
             {/* Aquí pasas el prop */}
@@ -123,7 +127,6 @@ function NavbarAuth(): JSX.Element {
               <FaHeart color="red" size={28} />
             </Link>
             <Link to="/user" onClick={() => setIsMenuOpen(false)}>
-            
               <CgProfile size={32} />
             </Link>
             <ThemeButton />
