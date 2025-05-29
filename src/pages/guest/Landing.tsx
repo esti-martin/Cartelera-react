@@ -13,16 +13,10 @@ export default function Landing() {
         {/* Contenido */}
         <div className="relative z-10 text-center bg-transparent">
           <h1 className="text-4xl font-bold bg-transparent">
-            Descubre el cine que lo <br />
-            <span className="text-primary-color bg-transparent">
-              cambia todo
-            </span>
+            Descubre el cine que lo cambia todo
           </h1>
-          <p className="text-2xl mt-4 max-w-xl mx-auto bg-transparent">
-            Encuentra la película que más te guste y descubre <br />
-            <span className="flex justify-center bg-transparent text-center">
-              la historia detrás de ella.
-            </span>
+          <p className="text-2xl mt-4 max-w-xl mx-auto bg-transparent text-center">
+            Encuentra la película que más te guste y descubre la historia detrás de ella.
           </p>
         </div>
       </div>
