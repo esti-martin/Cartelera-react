@@ -54,3 +54,88 @@
 a {
   background-color: transparent;
 }
+
+.desktopLinks { 
+  display: flex;
+}
+
+
+/* Botón hamburguesa */
+.menuIcon {
+  display: none;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+/* Menú móvil */
+.mobileMenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--mobile-menu-bg);
+  backdrop-filter: blur(10px);
+  padding: 1rem;
+  flex-direction: column;
+  gap: 1.5rem;
+  border-bottom: 1px solid var(--navbar-border-color);
+  justify-content: center;
+
+  ul {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    
+  }
+
+  li {
+    padding: 1rem;
+    margin: auto;
+    
+  }
+
+  a{
+    font-weight: bold;
+    justify-content: center;
+  }
+}
+
+.mobileButtons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* Responsive */
+@media screen and (max-width: 1000px) {
+  .logoNav {
+    img {
+      width: 150px;
+    }
+
+    .desktopLinks {
+      display: none;
+    }
+  }
+
+  .searchProfile {
+    display: none;
+  }
+
+  .menuIcon {
+    display: block;
+  }
+
+  .mobileMenu {
+    display: flex;
+  }
+
+  .box {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Centra el SearchBox dentro de su contenedor */
+    margin: 1rem 0;
+  }
+}

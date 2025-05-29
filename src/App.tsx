@@ -12,7 +12,8 @@ import Footer from "@components/footer/footer";
 import UserProfile from "@pages/auth/userpage/userprofile.js";
 import "@styles/index.css";
 import { AuthProvider } from "@pages/auth/userpage/AuthContext.js";
-import Favorites from "@pages/auth/Favorites.js";
+import Favorites from "@pages/auth/FavoritesRud.js";
+import Favoritos from "@pages/auth//favorites.js";
 
 export default function App() {
   const { user: auth0User, isAuthenticated, isLoading } = useAuth0();
@@ -82,6 +83,11 @@ export default function App() {
               }
             />
           </Routes>
+          <Routes>
+            {/* ... otras rutas */}
+            <Route path="/favoritos" element={<Favoritos />} />
+          </Routes>
+         
         </div>
         <Footer />
       </div>

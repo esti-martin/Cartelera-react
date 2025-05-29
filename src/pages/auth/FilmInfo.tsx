@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import CardLg from "@components/commons/card/CardLg";
+import useVisitedPage from "../../hooks/useVisitedPage";
+
 
 export default function FilmInfo() {
   const { id } = useParams();
@@ -8,6 +10,13 @@ export default function FilmInfo() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [id]);
+  const { markAsVisited } = useVisitedPage();
+
+  useEffect(() => {
+    if (id) {
+      markAsVisited(Number(id)); // Usa Number si tus ids son numéricos
+    }
+  }, [id, markAsVisited]);
 
   return (
     <>

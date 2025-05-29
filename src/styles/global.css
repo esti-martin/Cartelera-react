@@ -10,6 +10,7 @@
   --slider-overlay-color: rgba(0, 0, 0, 0.3);
   --slider-dot-inactive-color: rgba(0, 0, 0, 0.4);
   --slider-dot-active-color: var(--primary-color);
+  --mobile-menu-bg: rgba(245, 245, 255, 0.85);
 
   --border-radius: 8px;
 }
@@ -26,6 +27,7 @@ html.dark {
   --slider-overlay-color: rgba(0, 0, 0, 0.5); /* Original overlay for dark mode */
   --slider-dot-inactive-color: rgba(255, 255, 255, 0.4); /* Lighter inactive dot for dark mode */
   --slider-dot-active-color: var(--primary-color); /* Active dot color for dark mode */
+  --mobile-menu-bg: rgba(10, 10, 30, 0.85);
 }
 
 * {

@@ -3,6 +3,7 @@ import styles from "./icons-styles.module.css";
 import { FaEye } from "react-icons/fa";
 
 type IconProps = {
+  id: number;
   onClick: () => void;
 };
 

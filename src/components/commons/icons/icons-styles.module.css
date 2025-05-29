@@ -1,10 +1,19 @@
 .icon {
     display: flex;
+    justify-content: center;
+    align-items: center;
     width: 2.5rem;
     height: 2.5rem;
     color: var(--text-color);
     border: 1px solid var(--text-color);
     border-radius: 4px;
-    justify-content: center;
-    align-items: center;
+    background-color: rgba(0, 123, 255, 0.5);
 }
+
+.iconHeart {
+    color: white; /* color por defecto */
+  }
+  
+  .iconHeart.filled {
+    color: red; /* color cuando está marcado */
+  }
