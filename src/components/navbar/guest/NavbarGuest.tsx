@@ -7,7 +7,7 @@ function NavbarGuest(): JSX.Element  {
   return (
     <nav className={styles.nav}>
         <img src="/logo.png" alt="logo Hooks & Chill" />
-        <LoginButton/>
+        <LoginButton />
     </nav>
   );
 }
