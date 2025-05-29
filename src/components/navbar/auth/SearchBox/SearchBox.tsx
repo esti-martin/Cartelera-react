@@ -4,7 +4,12 @@ import { CgSearch } from "react-icons/cg";
 import styles from "./SearchBox.module.css";
 import type { JSX } from "react";
 
-function SearchBox(): JSX.Element {
+// Añadimos el prop onSearch
+type SearchBoxProps = {
+  onSearch?: () => void;
+};
+
+function SearchBox({ onSearch }: SearchBoxProps): JSX.Element {
   const [query, setQuery] = useState<string>("");
   const navigate = useNavigate();
 
@@ -12,6 +17,8 @@ function SearchBox(): JSX.Element {
     e.preventDefault();
     if (query.trim() !== "") {
       navigate(`/search?q=${encodeURIComponent(query.trim())}`);
+      // Llamamos a onSearch si se ha pasado como prop
+      if (onSearch) onSearch();
     }
   };
 

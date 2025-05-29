@@ -88,29 +88,37 @@ function NavbarAuth(): JSX.Element {
         <div className={styles.mobileMenu}>
           <ul>
             <li className="bg-transparent">
-              <a className="dark:text-white text-black" href="/home#Acción">
+              <a className="dark:text-white text-black" 
+              href="/home#Acción"
+              onClick={() => setIsMenuOpen(false)}>
                 Acción
               </a>
-            </li>
-            <li className="bg-transparent">
-              <a className="dark:text-white text-black" href="/home#Comedia">
-                Comedia
-              </a>
-            </li>
-            <li className="bg-transparent">
-              <a className="dark:text-white text-black" href="/home#Drama">
-                Drama
-              </a>
-            </li>
+          </li>
+          <li className="bg-transparent">
+            <a className="dark:text-white text-black" 
+            href="/home#Comedia"
+            onClick={() => setIsMenuOpen(false)}>
+              Comedia
+            </a>
+          </li>
+          <li className="bg-transparent">
+            <a className="dark:text-white text-black" 
+            href="/home#Drama"
+            onClick={() => setIsMenuOpen(false)}>
+              Drama
+            </a>
+          </li>
           </ul>
           <div className={styles.box}>
-            <SearchBox />
+            {/* Aquí pasas el prop */}
+            <SearchBox onSearch={() => setIsMenuOpen(false)} />
           </div>
           <div className={styles.mobileButtons}>
-            <Link to="/favoritos">
+            <Link to="/favoritos" onClick={() => setIsMenuOpen(false)}>
               <FaHeart color="red" size={28} />
             </Link>
-            <Link to="/user">
+            <Link to="/user" onClick={() => setIsMenuOpen(false)}>
+            
               <CgProfile size={32} />
             </Link>
             <ThemeButton />
