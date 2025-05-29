@@ -1,16 +1,16 @@
 .user-profile {
-  max-width: 1000px;      /* más ancho que antes */
+  max-width: 1000px;
   margin: 2rem auto;
   padding: 5.5rem;
-  /* background-color: #d7e7ee; */
   border-radius: 12px;
   border: 1px solid white;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   font-family: Arial, Helvetica, sans-serif;
   color: var(--text-color);
-  display: flex;          /* activamos flexbox */
-  align-items: center;    /* alineamos verticalmente */
-  gap: 1.5rem;            /* espacio entre imagen y texto */
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap; /* Permite que los elementos se ajusten en pantallas pequeñas */
 }
 
 .profile-img {
@@ -22,10 +22,10 @@
 }
 
 .user-info {
-  /* para contener el nombre y email a la derecha */
   display: flex;
   flex-direction: column;
   justify-content: center;
+  flex: 1; /* Permite que el texto ocupe más espacio si es necesario */
 }
 
 .user-info h2 {
@@ -37,11 +37,11 @@
   margin: 0;
   font-size: 1.5rem;
   color: var(--text-color);
-  text-align: center; /* centramos el texto */
+  text-align: center;
 }
 
 .user-profile button {
-  margin-left: auto; /* empuja el botón al extremo derecho */
+  margin-left: auto;
   background-color: #4a90e2;
   border: none;
   color: var(--text-color);
@@ -56,3 +56,38 @@
   background-color: #357ABD;
 }
 
+/* Media queries para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .user-profile {
+    flex-direction: column; /* Cambia a diseño vertical */
+    padding: 2rem;
+    text-align: center; /* Centra el contenido */
+  }
+
+  .profile-img {
+    margin-bottom: 1rem; /* Espacio entre la imagen y el texto */
+  }
+
+  .user-info {
+    align-items: center; /* Centra el texto */
+  }
+
+  .user-profile button {
+    margin: 1rem auto 0; /* Centra el botón */
+  }
+}
+
+@media (max-width: 480px) {
+  .user-info h2 {
+    font-size: 1.5rem; /* Reduce el tamaño del texto */
+  }
+
+  .user-info p {
+    font-size: 1.2rem; /* Reduce el tamaño del texto */
+  }
+
+  .user-profile button {
+    font-size: 0.9rem; /* Ajusta el tamaño del botón */
+    padding: 0.5rem 1rem;
+  }
+}
