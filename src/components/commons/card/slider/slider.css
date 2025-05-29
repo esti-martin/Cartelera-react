@@ -114,3 +114,28 @@ p {
 strong {
   background-color: transparent;
 }
+
+@media (max-width: 640px) {
+  .nav-button {
+    top: auto;              /* Quitar centrado vertical */
+    bottom: 20px;           /* Colocar al fondo del slider */
+    transform: none;        /* Eliminar transform que centraba verticalmente */
+    font-size: 2rem;        /* Opcional: reducir tamaño en móviles */
+    padding: 0.3rem 0.8rem; /* Más compacto en móviles */
+  }
+
+  .nav-button.left {
+    left: 25%;
+  }
+
+  .nav-button.right {
+    right: 25%;
+  }
+
+  .slider-content {
+    left: 5%; /* vuelve a alinear a la izquierda */
+    transform: none; /* elimina el centrado horizontal */
+    max-width: 90%; /* más ancho que en escritorio */
+    text-align: left; /* asegura alineación del texto a la izquierda */
+  }
+}

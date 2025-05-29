@@ -116,7 +116,7 @@ function Slider() {
           <p>{movie.overview}</p>
           <Button
             onClick={() => navigate(`/movie/${movie.id}`)}
-            className="top-16"
+            className="slider-button"
           >
             Ver Más
           </Button>
