@@ -4,6 +4,11 @@
 
 A modern React application built with Vite, featuring user authentication, dynamic content display, and a light/dark theme. This application serves as a boilerplate or starting point for a feature-rich web app, potentially a movie billboard or a similar content-driven platform.
 
+## My Role in the Project
+
+As a team member, I was responsible for designing the login and logout flow using Auth0, as well as implementing the feature that allows users to mark a movie as watched. 
+Additionally, I took on the role of Product Owner, ensuring that all user stories were met and maintaining the consistency and quality of the application’s design. I also considered the user experience, although due to time constraints, I couldn’t dedicate as much attention to it as I would have liked.
+
 ## Features
 
 *   **User Authentication**: Secure login and registration using Auth0.
